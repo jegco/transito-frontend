@@ -1,0 +1,43 @@
+
+.login-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    z-index: -1;
+    background-color: blue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+.btn-login {
+    background-color: green;
+    text-decoration-color: white;
+    color: white
+}
+
+.login-form {
+    color: white;
+    width: 28%;
+}
+
+.login-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: grey;
+    opacity: 1;
+    /* Firefox */
+}
+.error{
+    color: red
+}

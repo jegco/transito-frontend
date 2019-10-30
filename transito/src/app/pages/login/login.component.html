@@ -1,0 +1,30 @@
+<div class="container-fluid login-container">
+    <form class="login-form" (keydown.enter)="login()" ngNativeValidate>
+        <mat-card class="login-card">
+            <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <table class="login-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                    <mat-form-field class="login-full-width">
+                    <input matInput placeholder="Username" [(ngModel)]="username" name="username" required />
+                    </mat-form-field>
+                    </td>
+                </tr>
+                <tr>
+                <td><mat-form-field class="login-full-width">
+                    <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password" required />
+                </mat-form-field></td>
+                </tr></table>
+            
+            </mat-card-content>
+            <mat-card-actions>
+            <button mat-raised-button (click)="login()" color="primary">Login</button>
+            </mat-card-actions>
+            <a href="javascript:void(0)" (click)="openPage('register')">crear nueva cuenta</a>
+            <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
+        </mat-card>
+    </form>
+</div>

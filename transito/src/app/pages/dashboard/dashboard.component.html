@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Guia de tramites del transito: Admin</span>
+      <span class="example-spacer"></span>
+      <button mat-button [matMenuTriggerFor]="perfil">Perfil</button>
+      <mat-menu #perfil="matMenu">
+        <button mat-menu-item>Cuenta</button>
+        <button mat-menu-item (click)="cerrarSesion()">Cerrar sesion</button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
