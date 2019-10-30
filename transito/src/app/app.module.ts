@@ -17,6 +17,8 @@ import { HttpErrorInterceptor } from './errors/services/http-error-interceptor';
 import { HttpAuthInterceptor } from './providers/auth/HttpAuthInterceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { GuiasdetramiteComponent } from './pages/guiasdetramite/guiasdetramite.component';
+import { PreferenciasComponent } from './pages/preferencias/preferencias.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
     BaseComponent,
     LoginComponent,
     RegisterComponent,
-    DashboardComponent
+    DashboardComponent,
+    GuiasdetramiteComponent,
+    PreferenciasComponent
   ],
   imports: [
     BrowserModule,

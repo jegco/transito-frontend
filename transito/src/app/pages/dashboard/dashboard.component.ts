@@ -26,4 +26,8 @@ export class DashboardComponent extends BaseComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
+  getTitle(): string {
+    return this.router.url === 'dashboard' ? 'Dashboard' : this.router.url.slice(11);
+  }
+
 }
