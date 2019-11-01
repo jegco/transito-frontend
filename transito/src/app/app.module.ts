@@ -10,8 +10,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsModule } from './errors/errors.module';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
-  MatToolbarModule, MatMenuModule,MatIconModule, MatProgressSpinnerModule, MatSidenavModule,
-  MatCheckboxModule, MatListModule
+  MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatSidenavModule,
+  MatCheckboxModule, MatListModule, MatExpansionModule
 } from '@angular/material';
 import { HttpErrorInterceptor } from './errors/services/http-error-interceptor';
 import { HttpAuthInterceptor } from './providers/auth/HttpAuthInterceptor';
@@ -19,6 +19,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { GuiasdetramiteComponent } from './pages/guiasdetramite/guiasdetramite.component';
 import { PreferenciasComponent } from './pages/preferencias/preferencias.component';
+import { GuardarGuiaComponent } from './components/guardar-guia/guardar-guia.component';
+import { DragDropDirective } from './directives/DragDropDirective';
+import { UploadFilesComponent } from './components/upload-files/upload-files.component';
+import { TableComponent } from './components/table/table.component';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -28,7 +33,11 @@ import { PreferenciasComponent } from './pages/preferencias/preferencias.compone
     RegisterComponent,
     DashboardComponent,
     GuiasdetramiteComponent,
-    PreferenciasComponent
+    PreferenciasComponent,
+    GuardarGuiaComponent,
+    DragDropDirective,
+    UploadFilesComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +51,11 @@ import { PreferenciasComponent } from './pages/preferencias/preferencias.compone
     MatInputModule,
     MatToolbarModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatTableModule,
+    ToastrModule
   ],
   providers: [{
       provide: HTTP_INTERCEPTORS,

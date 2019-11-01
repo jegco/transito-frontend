@@ -22,14 +22,19 @@
 
 .login-form {
     color: white;
-    width: 28%;
 }
+
+@media screen and (min-width:1024px) {
+    .login-form {
+        color: white;
+        width: 30%;
+    }
+  }
 
 .login-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 100%;
 }
 
 ::placeholder {
@@ -40,4 +45,10 @@
 }
 .error{
     color: red
+}
+
+.spinner {
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }

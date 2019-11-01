@@ -14,6 +14,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
 
   username: string;
   password: string;
+  showSpinner = false;
 
   constructor(public readonly router: Router
     , public readonly errorService: ErrorService
@@ -29,9 +30,16 @@ export class LoginComponent extends BaseComponent implements OnInit{
   }
 
   login() {
+    this.showSpinner = true;
     if(this.username && this.password) {
       this.loginService.login(this.username, this.password)
-      .subscribe(() => this.router.navigate(['/dashboard']), error => this.handleException(error));
+      .subscribe(() => {
+        this.showSpinner = false;
+        this.router.navigate(['/dashboard']);
+      }, error => {
+        this.showSpinner = false;
+        this.handleException(error)
+      });
     }
   }
 

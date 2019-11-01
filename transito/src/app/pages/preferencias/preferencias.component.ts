@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreferenciasComponent implements OnInit {
 
+  colorPrimario = "azul";
+  colorSecundario = "verde";
+
   constructor() { }
 
   ngOnInit() {

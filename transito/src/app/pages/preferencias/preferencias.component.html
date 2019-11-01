@@ -1,1 +1,28 @@
-<p>preferencias works!</p>
+<div class="container-fluid preferencias-container">
+    <form class="preferencias-form" (keydown.enter)="login()" ngNativeValidate>
+        <mat-card class="preferencias-card">
+            <mat-card-header>
+                <mat-card-title>Guardar preferencias de usuarios</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <table class="preferencias-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <label>Color principal: <p>{{ colorPrimario }}</p></label>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label>Color secundario: {{ colorSecundario }}</label>
+                        </td>
+                    </tr>
+                </table>
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button (click)="login()" color="primary">Login</button>
+            </mat-card-actions>
+            <a href="javascript:void(0)" (click)="openPage('register')">crear nueva cuenta</a>
+            <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
+        </mat-card>
+    </form>
+</div>

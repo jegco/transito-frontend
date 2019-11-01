@@ -1,0 +1,32 @@
+<div class="container-fluid search-container">
+    <form class="search-form" (keydown.enter)="search()" ngNativeValidate>
+        <mat-card class="search-card">
+            <mat-card-header>
+                <mat-card-title>search</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <table class="search-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="search-input">
+                                <input matInput
+                                    placeholder="Escribe una palabra que haga referencia a lo que estas buscando"
+                                    [(ngModel)]="searchValue" name="search" required />
+                                <button mat-button *ngIf="searchValue" matSuffix mat-icon-button aria-label="Clear"
+                                    (click)="searchValue=''">
+                                    <mat-icon>close</mat-icon>
+                                </button>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                </table>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button (click)="search()" color="primary">buscar</button>
+            </mat-card-actions>
+            <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
+        </mat-card>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
+    </form>
+</div>

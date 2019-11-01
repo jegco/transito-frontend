@@ -26,5 +26,6 @@
             <a href="javascript:void(0)" (click)="openPage('register')">crear nueva cuenta</a>
             <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
         </mat-card>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
     </form>
 </div>

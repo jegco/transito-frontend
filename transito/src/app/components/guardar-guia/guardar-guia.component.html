@@ -1,0 +1,108 @@
+<div class="container-fluid login-container">
+    <form class="guia-form" (keydown.enter)="login()" ngNativeValidate>
+        <mat-card class="guia-card">
+            <mat-card-header>
+                <mat-card-title>Guardar guia de tramites</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <table class="guia-full-width" cellspacing="0">
+                    <tr>
+                        <td>
+                            <mat-form-field class="guia-full-width">
+                                <input matInput placeholder="Titulo" [(ngModel)]="titulo" name="titulo" required />
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="guia-full-width">
+                                <input matInput placeholder="tipo" class="guia-full-width" type="text"
+                                    [(ngModel)]="tipo" name="tipo" required />
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-form-field class="guia-full-width">
+                                <textarea matInput placeholder="descripcion" type="text" [(ngModel)]="descripcion"
+                                    name="descripcion" required></textarea>
+                            </mat-form-field>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button mat-raised-button (click)="addPaso()" color="primary">añadir paso</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <mat-accordion class="guia-acordeon">
+                                <mat-expansion-panel *ngFor="let paso of pasos; let key = index">
+                                    <mat-expansion-panel-header>
+                                        <mat-panel-title>
+                                            Paso # {{ key+1 }}
+                                        </mat-panel-title>
+                                        <mat-panel-description>
+                                            Paso a seguir
+                                        </mat-panel-description>
+                                    </mat-expansion-panel-header>
+
+                                    <div class="paso-container">
+                                        <mat-form-field>
+                                            <input matInput placeholder="titulo" class="guia-full-width"
+                                                name="titulo-paso" [value]="paso.titulo">
+                                        </mat-form-field>
+                                        <mat-form-field>
+                                            <textarea matInput placeholder="descripcion" class="guia-full-width"
+                                                type="text" name="descripcion-paso" [value]="paso.descripcion"
+                                                required></textarea>
+                                        </mat-form-field>
+                                        <div>
+                                            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                                                (onFileDropped)="uploadFile(key, $event)">
+                                                <input hidden type="file" #fileInput
+                                                    (change)="uploadFile(key, $event.target.files)">
+                                            </div>
+                                            <div class="files-list"
+                                                *ngFor="let file of obtenerArchivosEnPaso(key);let i= index">
+                                                <p> {{ file.name }} </p>
+
+                                                <mat-icon aria-hidden="false" class="delete-file"
+                                                    (click)="deleteAttachment(key, i)" aria-label="Example delete icon">
+                                                    delete</mat-icon>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </mat-expansion-panel>
+                            </mat-accordion>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div>
+                                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                                    (onFileDropped)="uploadFileGuia($event)">
+                                    <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files)">
+                                </div>
+                                <div class="files-list" *ngFor="let file of archivosGuia ;let i= index">
+                                    <p> {{ file.name }} </p>
+
+                                    <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i)"
+                                        aria-label="Example delete icon">
+                                        delete</mat-icon>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button mat-raised-button (click)="guardarGuia()" color="primary">Guardar</button>
+            </mat-card-actions>
+            <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
+        </mat-card>
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
+    </form>
+</div>
