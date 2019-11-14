@@ -13,7 +13,7 @@ import { HttpErrorInterceptor } from './errors/services/http-error-interceptor';
 import {
   MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
   MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatSidenavModule,
-  MatCheckboxModule, MatListModule, MatExpansionModule
+  MatCheckboxModule, MatListModule, MatExpansionModule, MatDividerModule
 } from '@angular/material';
 import { BaseComponent } from './pages/base/base.component';
 import { GuiaItemComponent } from './components/guia-item/guia-item.component';
@@ -45,7 +45,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatTableModule,
-    ToastrModule
+    ToastrModule,
+    MatDividerModule
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

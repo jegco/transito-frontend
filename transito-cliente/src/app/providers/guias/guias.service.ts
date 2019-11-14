@@ -21,7 +21,7 @@ export class GuiasService {
     return this.http.getResource<GuiaDeTramite[]>(this.url, param, param, param);
   }
 
-  buscarGuia(): Observable<GuiaDeTramite[]> {
-    return this.http.get<GuiaDeTramite[]>(this.url);
+  buscarGuiaPorTitulo(titulo: string): Observable<GuiaDeTramite> {
+    return this.http.getResource<GuiaDeTramite>(`${this.url}/titulo`, titulo);
   }
 }

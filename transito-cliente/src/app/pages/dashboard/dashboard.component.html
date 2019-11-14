@@ -1,4 +1,4 @@
 <div *ngIf="guiasDeTramite.length > 0">
-    <app-guia-item *ngFor="let guia of guiasDeTramite"></app-guia-item>
+    <app-guia-item *ngFor="let guiaTramite of guiasDeTramite" [guia]="guiaTramite" (details)="showDetails($event)"></app-guia-item>
 </div>
 <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>

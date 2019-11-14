@@ -1,1 +1,52 @@
-<p>details works!</p>
+<div class="container-fluid login-container" *ngIf="guia">
+    <mat-card class="guia-card">
+        <mat-card-header>
+            <mat-card-title>{{ guia.titulo }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <table class="guia-full-width" cellspacing="0">
+                <tr>
+                    <td>
+                        <span name="titulo" required>{{ guia.descripcion }}</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <mat-accordion class="guia-acordeon">
+                            <mat-expansion-panel *ngFor="let paso of guia.pasos; let key = index">
+                                <mat-expansion-panel-header>
+                                    <mat-panel-title>
+                                        {{ paso.titulo }}
+                                    </mat-panel-title>
+                                    <mat-panel-description>
+                                        Paso # {{ key+1 }}
+                                    </mat-panel-description>
+                                </mat-expansion-panel-header>
+
+                                <div class="paso-container">
+                                    <span>{{ paso.descripcion }}</span>
+                                    <div>
+                                        <img src="http://localhost:8081/documentos/example2.png" alt="">
+                                    </div>
+                                </div>
+                            </mat-expansion-panel>
+                        </mat-accordion>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button (click)="guardarGuia()" color="primary">Guardar</button>
+        </mat-card-actions>
+        <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
+    </mat-card>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
+</div>

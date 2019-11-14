@@ -34,11 +34,10 @@ export class DashboardComponent extends BaseComponent implements OnInit {
         this.showSpinner = false;
         this.guiasDeTramite = guias;
       }, error => this.handleException(error));
+  }
 
-    // this.guiasService.buscarGuias().subscribe(guias => {
-    //   this.guiasDeTramite = guias;
-    //   this.showSpinner = false;
-    // }, error => this.handleException(error));
+  showDetails($event: GuiaDeTramite) {
+    this.openPage( `/details/${$event.titulo}` , {guia: $event});
   }
 
 }

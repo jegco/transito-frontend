@@ -41,4 +41,8 @@ export class GuiasdetramiteComponent extends BaseComponent implements OnInit {
     return this.guias.length !== 0;
   }
 
+  crearGuia() {
+    this.openPage('dashboard/guardar-nueva-guia');
+  }
+
 }

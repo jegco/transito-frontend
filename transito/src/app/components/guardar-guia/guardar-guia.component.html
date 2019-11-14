@@ -1,5 +1,5 @@
 <div class="container-fluid login-container">
-    <form class="guia-form" (keydown.enter)="login()" ngNativeValidate>
+    <form class="guia-form" ngNativeValidate>
         <mat-card class="guia-card">
             <mat-card-header>
                 <mat-card-title>Guardar guia de tramites</mat-card-title>
@@ -16,16 +16,14 @@
                     <tr>
                         <td>
                             <mat-form-field class="guia-full-width">
-                                <input matInput placeholder="tipo" class="guia-full-width" type="text"
-                                    [(ngModel)]="tipo" name="tipo" required />
+                                <input matInput placeholder="tipo" class="guia-full-width" type="text" [(ngModel)]="tipo" name="tipo" required />
                             </mat-form-field>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <mat-form-field class="guia-full-width">
-                                <textarea matInput placeholder="descripcion" type="text" [(ngModel)]="descripcion"
-                                    name="descripcion" required></textarea>
+                                <textarea matInput placeholder="descripcion" type="text" [(ngModel)]="descripcion" name="descripcion" required></textarea>
                             </mat-form-field>
                         </td>
                     </tr>
@@ -48,27 +46,20 @@
                                     </mat-expansion-panel-header>
 
                                     <div class="paso-container">
-                                        <mat-form-field>
-                                            <input matInput placeholder="titulo" class="guia-full-width"
-                                                name="titulo-paso" [value]="paso.titulo">
+                                        <mat-form-field class="guia-full-width">
+                                            <input matInput placeholder="titulo" name="titulo-paso" [value]="paso.titulo">
                                         </mat-form-field>
-                                        <mat-form-field>
-                                            <textarea matInput placeholder="descripcion" class="guia-full-width"
-                                                type="text" name="descripcion-paso" [value]="paso.descripcion"
-                                                required></textarea>
+                                        <mat-form-field class="guia-full-width">
+                                            <textarea matInput placeholder="descripcion" type="text" name="descripcion-paso" [value]="paso.descripcion" required></textarea>
                                         </mat-form-field>
                                         <div>
-                                            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
-                                                (onFileDropped)="uploadFile(key, $event)">
-                                                <input hidden type="file" #fileInput
-                                                    (change)="uploadFile(key, $event.target.files)">
+                                            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile(key, $event)">
+                                                <input hidden type="file" #fileInput (change)="uploadFile(key, $event.target.files)">
                                             </div>
-                                            <div class="files-list"
-                                                *ngFor="let file of obtenerArchivosEnPaso(key);let i= index">
+                                            <div class="files-list" *ngFor="let file of obtenerArchivosEnPaso(key);let i= index">
                                                 <p> {{ file.name }} </p>
 
-                                                <mat-icon aria-hidden="false" class="delete-file"
-                                                    (click)="deleteAttachment(key, i)" aria-label="Example delete icon">
+                                                <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachment(key, i)" aria-label="Example delete icon">
                                                     delete</mat-icon>
 
                                             </div>
@@ -81,15 +72,13 @@
                     <tr>
                         <td>
                             <div>
-                                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
-                                    (onFileDropped)="uploadFileGuia($event)">
+                                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileGuia($event)">
                                     <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files)">
                                 </div>
                                 <div class="files-list" *ngFor="let file of archivosGuia ;let i= index">
                                     <p> {{ file.name }} </p>
 
-                                    <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i)"
-                                        aria-label="Example delete icon">
+                                    <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i)" aria-label="Example delete icon">
                                         delete</mat-icon>
                                 </div>
                             </div>

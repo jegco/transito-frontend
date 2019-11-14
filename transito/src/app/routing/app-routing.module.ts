@@ -5,6 +5,7 @@ import { RegisterComponent } from '../pages/register/register.component';
 import { DashboardComponent } from '../pages/dashboard/dashboard.component';
 import { GuiasdetramiteComponent } from '../pages/guiasdetramite/guiasdetramite.component';
 import { PreferenciasComponent } from '../pages/preferencias/preferencias.component';
+import { GuardarGuiaComponent } from '../components/guardar-guia/guardar-guia.component';
 
 
 const routes: Routes = [
@@ -12,7 +13,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'dashboard', component: DashboardComponent, children: [
     {path: 'guias', component: GuiasdetramiteComponent},
-    {path: 'preferencias', component: PreferenciasComponent}
+    {path: 'preferencias', component: PreferenciasComponent},
+    {path: 'guardar-nueva-guia', component: GuardarGuiaComponent}
   ]},
   { path: '**', redirectTo: 'login' }
 ];

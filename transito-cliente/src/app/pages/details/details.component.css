@@ -1,0 +1,20 @@
+.guia-acordeon {
+    padding-left: 2px;
+    padding-right: 2px;
+    margin-left: 2px;
+    margin-right: 2px;
+    width: auto;
+    display: block;
+}
+
+.guia-full-width,
+td,
+tr {
+    width: auto;
+    display: block;
+}
+
+.paso-container {
+    display: flex;
+    flex-direction: column;
+}

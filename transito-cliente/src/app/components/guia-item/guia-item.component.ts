@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { GuiaDeTramite } from 'src/app/models/GuiaDeTramite';
+import { BaseComponent } from 'src/app/pages/base/base.component';
 
 @Component({
   selector: 'app-guia-item',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GuiaItemComponent implements OnInit {
 
+  @Input() guia: GuiaDeTramite;
+  @Output() details = new EventEmitter<GuiaDeTramite>();
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+  showDetails(): void {
+    this.details.emit(this.guia);
   }
 
 }
