@@ -4,9 +4,6 @@ import { GuiasService } from 'src/app/providers/guiasdetramites/guias.service';
 import { Router } from '@angular/router';
 import { ErrorService } from 'src/app/errors/services/error.service';
 import { ToastrService } from 'ngx-toastr';
-import { GuiaDeTramite } from 'src/app/models/GuiaDeTramite';
-import { debug } from 'util';
-import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-guiasdetramite',
@@ -30,9 +27,9 @@ export class GuiasdetramiteComponent extends BaseComponent implements OnInit {
     .subscribe(guias => {
       guias.forEach(guia => {
         const titulo = guia.titulo;
-        const tipo = guia.tipo;
+        const tipo = guia.tipo ? guia.tipo : "tipo de ejemplo";
         const pasos = guia.pasos.length;
-        this.guias.push({ titulo, tipo, pasos})
+        this.guias.push({ titulo, tipo, pasos});
       });
     }, error => this.handleException(error));
   }

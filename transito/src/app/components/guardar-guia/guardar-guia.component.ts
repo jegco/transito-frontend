@@ -90,14 +90,6 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
   guardarGuia(): void {
     this.showSpinner = true;
-    // this.pasos.forEach((paso: Paso, index: number) => {
-    //   this.documentoService.guardarDocumentos(this.files.get(index))
-    //     .pipe(map(documento => paso.documentos.push(documento)))
-    //     .subscribe(guia => {
-    //       this.showSpinner = false
-    //     }, error => this.handleException(error))
-    // });
-    
     this.guiasService.guardarGuia(new GuiaDeTramite("", this.titulo, this.descripcion, this.documentosGuia, this.pasos, this.tipo))
       .subscribe(() => this.showSpinner = false, error => {
         this.showSpinner = false;

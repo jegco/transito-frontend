@@ -25,8 +25,8 @@ export class LoginService {
       }));
   }
 
-  register(username: string, name: string, password: string) {
-    const user = new User(null, username, name, password);
+  register(username: string, email: string, password: string, phoneNumber: number) {
+    const user = new User(null, username, name, password, phoneNumber);
     return this.http.post(this.url, user);
   }
 }
