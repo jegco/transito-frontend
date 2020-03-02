@@ -1,4 +1,13 @@
-<app-table *ngIf="guias.length !== 0" [displayedColumns]="columnas" [dataSource]="guias"></app-table>
+<app-table *ngIf="guiasTableDataSource.length !== 0" 
+[displayedColumns]="columnas" 
+[dataSource]="guiasTableDataSource" 
+[hasActions]=true
+[showUpdate]=true
+[showProperties]=true
+[showDelete]=true
+(update)="actualizarGuia($event)"
+(delete)="eliminarGuia($event)">
+</app-table>
 <mat-card *ngIf="guias.length == 0">No se encontraron guias guardadas hasta el momento</mat-card>
 <a mat-fab href="javascript:void(0)" (click)="crearGuia()" class="floating-button-guias">
     <mat-icon>add</mat-icon>

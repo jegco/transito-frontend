@@ -14,7 +14,8 @@ const routes: Routes = [
   {path: 'dashboard', component: DashboardComponent, children: [
     {path: 'guias', component: GuiasdetramiteComponent},
     {path: 'preferencias', component: PreferenciasComponent},
-    {path: 'guardar-nueva-guia', component: GuardarGuiaComponent}
+    {path: 'guardar-nueva-guia', component: GuardarGuiaComponent},
+    {path: 'guardar-nueva-guia/:nombreGuia', component: GuardarGuiaComponent}
   ]},
   { path: '**', redirectTo: 'login' }
 ];

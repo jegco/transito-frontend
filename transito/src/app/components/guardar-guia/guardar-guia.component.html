@@ -9,21 +9,21 @@
                     <tr>
                         <td>
                             <mat-form-field class="guia-full-width">
-                                <input matInput placeholder="Titulo" [(ngModel)]="titulo" name="titulo" required />
+                                <input matInput placeholder="Titulo" [(ngModel)]="guia.titulo" name="titulo" required />
                             </mat-form-field>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <mat-form-field class="guia-full-width">
-                                <input matInput placeholder="tipo" type="text" [(ngModel)]="tipo" name="tipo" required />
+                                <input matInput placeholder="tipo" type="text" [(ngModel)]="guia.tipo" name="tipo" required />
                             </mat-form-field>
                         </td>
                     </tr>
                     <tr>
                         <td>
                             <mat-form-field class="guia-full-width">
-                                <textarea matInput placeholder="descripcion" type="text" [(ngModel)]="descripcion" name="descripcion" required></textarea>
+                                <textarea matInput placeholder="descripcion" type="text" [(ngModel)]="guia.descripcion" name="descripcion" required></textarea>
                             </mat-form-field>
                         </td>
                     </tr>
@@ -35,7 +35,7 @@
                     <tr>
                         <td>
                             <mat-accordion class="guia-acordeon">
-                                <mat-expansion-panel *ngFor="let paso of pasos; let key = index">
+                                <mat-expansion-panel *ngFor="let paso of guia.pasos; let key = index">
                                     <mat-expansion-panel-header>
                                         <mat-panel-title>
                                             Paso # {{ key+1 }}
@@ -57,7 +57,7 @@
                                                 <input hidden type="file" #fileInput (change)="uploadFile(key, $event.target.files)">
                                             </div>
                                             <div class="files-list" *ngFor="let file of obtenerArchivosEnPaso(key);let i= index">
-                                                <p> {{ file.name }} </p>
+                                                <p> {{ file.nombre }} </p>
 
                                                 <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachment(key, i)" aria-label="Example delete icon">
                                                     delete</mat-icon>
@@ -75,8 +75,8 @@
                                 <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileGuia($event)">
                                     <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files)">
                                 </div>
-                                <div class="files-list" *ngFor="let file of archivosGuia ;let i= index">
-                                    <p> {{ file.name }} </p>
+                                <div class="files-list" *ngFor="let file of obtenerArchivosEnGuia() ;let i= index">
+                                    <p> {{ file.nombre }} </p>
 
                                     <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i)" aria-label="Example delete icon">
                                         delete</mat-icon>

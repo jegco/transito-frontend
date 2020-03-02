@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, ViewChild, OnInit, DoCheck, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, ViewChild, OnInit, DoCheck, ChangeDetectorRef, ChangeDetectionStrategy, OnChanges, SimpleChanges } from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 
@@ -9,7 +9,7 @@ import { MatSort } from '@angular/material/sort';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class TableComponent implements OnInit, DoCheck {
+export class TableComponent implements OnInit, OnChanges {
 
   @Input() displayedColumns: string[];
   @Input() dataSource: any[];
@@ -19,20 +19,22 @@ export class TableComponent implements OnInit, DoCheck {
   @Input() hasActions: boolean;
   @Input() showUpdate: boolean;
   @Input() showProperties: boolean;
+  @Input() showDelete: boolean;
   conlumnsToDisplay = [];
   tableDataSource = new MatTableDataSource(this.dataSource);
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private changeDetectorRefs: ChangeDetectorRef) {
+  constructor() {
    }
 
   ngOnInit(): void {
+    this.tableDataSource = new MatTableDataSource(this.dataSource);
     this.tableDataSource.sort = this.sort;
     this.conlumnsToDisplay = Array.from(this.displayedColumns);
   }
 
-  ngDoCheck() {
-    this.changeDetectorRefs.detectChanges();
+  ngOnChanges(changes: SimpleChanges): void {
+    this.tableDataSource = new MatTableDataSource(changes.dataSource.currentValue);
   }
 
   getValueAtIndex(entity: any, index: number) {

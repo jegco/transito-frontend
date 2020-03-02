@@ -9,9 +9,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsModule } from './errors/errors.module';
 import {
-  MatButtonModule, MatCardModule, MatDialogModule, MatInputModule, MatTableModule,
-  MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatSidenavModule,
-  MatCheckboxModule, MatListModule, MatExpansionModule
+  MatButtonModule, MatCardModule, MatInputModule, MatTableModule,
+  MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatExpansionModule
 } from '@angular/material';
 import { HttpErrorInterceptor } from './errors/services/http-error-interceptor';
 import { HttpAuthInterceptor } from './providers/auth/HttpAuthInterceptor';

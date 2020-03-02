@@ -2,22 +2,22 @@
         <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 <div class="example-container mat-elevation-z8">
-        <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+        <table mat-table [dataSource]="tableDataSource" >
             <ng-container *ngFor="let column of displayedColumns; let i = index" matColumnDef="{{column}}">
-                <th mat-header-cell class="header" *matHeaderCellDef mat-sort-header>{{ column }}</th>
+                <th mat-header-cell *matHeaderCellDef mat-sort-header="titulo">{{ column }}</th>
                 <td mat-cell class="row" *matCellDef="let element"> {{ getValueAtIndex(element, i) }}</td>
             </ng-container>
     
             <ng-container *ngIf="hasActions" matColumnDef="Actions">
-                <th mat-header-cell class="header" *matHeaderCellDef>Actions</th>
-                <td mat-cell class="row" *matCellDef="let element">
+                <th mat-header-cell class="header" *matHeaderCellDef mat-sort-header>Actions</th>
+                <td mat-cell class="row" *matCellDef="let element; let i = index">
                     <button *ngIf="showProperties" mat-button (click)="propertiesElement(element)">
                         <mat-icon>visibility</mat-icon>
                     </button>
-                    <button *ngIf="!showUpdate"  mat-button (click)="updateElement(element)">
+                    <button *ngIf="showUpdate"  mat-button (click)="updateElement(element)">
                         <mat-icon>edit</mat-icon>
                     </button>
-                    <button mat-button (click)="deleteElement(element)">
+                    <button *ngIf="showDelete" mat-button (click)="deleteElement(i)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </td>

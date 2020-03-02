@@ -20,4 +20,12 @@ export class GuiasService {
   buscarGuias(): Observable<GuiaDeTramite[]> {
     return this.http.get<GuiaDeTramite[]>(this.url);
   }
+
+  buscarGuiaPorTitulo(titulo: string): Observable<GuiaDeTramite> {
+    return this.http.getResource<GuiaDeTramite>(`${this.url}/titulo`, titulo);
+  }
+
+  eliminarGuia(guia: GuiaDeTramite): Observable<void> {
+    return this.http.delete<GuiaDeTramite, void>(this.url, guia);
+  }
 }
