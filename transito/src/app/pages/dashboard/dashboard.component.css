@@ -1,7 +1,19 @@
-.menu-item {
-    padding: 0 14px;
-  }
-  
-  .example-spacer {
-    flex: 1 1 auto;
-  }
+.nav-icon {
+  padding: 0 20px;
+}
+
+.nav-spacer {
+  flex: 1 1 auto;
+}
+
+.main-panel {
+  display: flex;
+  width: 100%;
+  padding: 1%;
+}
+
+:host /deep/ router-outlet + *:not(nav) {
+  width:100%;
+  margin: 2%;
+  float:right;
+}

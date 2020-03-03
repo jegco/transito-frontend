@@ -1,96 +1,37 @@
-<div class="sidebar" data-color="purple" data-background-color="white">
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="logo">
-      <a href="http://www.creative-tim.com" class="simple-text logo-mini">
-        Estacion de servicios
-      </a>
-      <a href="http://www.creative-tim.com" class="simple-text logo-normal">
-      Admin dashboard
-      </a>
-    </div>
-    <div class="sidebar-wrapper">
-      <ul class="nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="javascript:void(0)" (click)="openPage('dashboard/preferencias')">
-            <i class="material-icons">dashboard</i>
-            <p>Preferencias de usuarios</p>
-          </a>
-        </li>
-      </ul>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Dashboard</title>
+</head>
 
-      <ul class="nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="javascript:void(0)" (click)="openPage('dashboard/guias')">
-            <i class="material-icons">dashboard</i>
-            <p>Guias de tramites</p>
-          </a>
-        </li>
-      </ul>
-    </div>
-  </div>
+<body>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Administrador de guias de tramites</span>
+      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+      <span class="nav-spacer"></span>
+    
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item routerLink="/dashboard/guias">Guias</button>
+        <button mat-menu-item routerLink="/dashboard/preferencias">Preferencias</button>
+      </mat-menu>
+
+      <mat-icon class="nav-icon" aria-hidden="false" aria-label="Perfil" mat-button
+        [matMenuTriggerFor]="menuPeople">person</mat-icon>
+      <mat-menu #menuPeople="matMenu">
+        <button mat-menu-item>Perfil</button>
+        <button mat-menu-item (click)="cerrarSesion()">Cerrar sesion</button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
   <!-- Navbar -->
   <div class="main-panel">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
-        <div class="container-fluid">
-          <div class="navbar-wrapper">
-            <a class="navbar-brand" href="#pablo">{{ getTitle() }}</a>
-          </div>
-          <button class="navbar-toggler justify-content-start" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-            <span class="navbar-toggler-icon icon-bar"></span>
-          </button>
-          <div class="collapse navbar-collapse justify-content-end">
-              <form class="navbar-form">
-                <div class="input-group no-border">
-                  <input type="text" value="" class="form-control" placeholder="Search...">
-                  <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                    <i class="material-icons">search</i>
-                    <div class="ripple-container"></div>
-                  </button>
-                </div>
-              </form>
-              <ul class="navbar-nav">
-                <li class="nav-item">
-                  <a class="nav-link" href="#pablo">
-                    <i class="material-icons">dashboard</i>
-                    <p class="d-lg-none d-md-block">
-                      Stats
-                    </p>
-                  </a>
-                </li>
-                <li class="nav-item dropdown">
-                  <a class="nav-link" href="#pablo" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <i class="material-icons">person</i>
-                    <p class="d-lg-none d-md-block">
-                      Account
-                    </p>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                    <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="javascript:void(0)" (click)="cerrarSesion()">Log out</a>
-                  </div>
-                </li>
-              </ul>
-            </div>
-        </div>
-      </nav>
-      <!-- End Navbar -->
-      <div class="content">
-        <div class="container-fluid">
-          <router-outlet></router-outlet>
-        </div>
-      </div>
-      <footer class="footer">
-        <div class="container-fluid">
-          <div class="copyright float-right">
-            <a href="https://www.linkedin.com/in/jorge-caro-olmos-1a4763125/">&copy; Jorge Caro Olmos</a>
-          </div>
-          <!-- your footer here -->
-        </div>
-      </footer>
-    </div>
+    <router-outlet></router-outlet>
+  </div>
+</body>
+
+</html>

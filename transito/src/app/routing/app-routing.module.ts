@@ -15,7 +15,8 @@ const routes: Routes = [
     {path: 'guias', component: GuiasdetramiteComponent},
     {path: 'preferencias', component: PreferenciasComponent},
     {path: 'guardar-nueva-guia', component: GuardarGuiaComponent},
-    {path: 'guardar-nueva-guia/:nombreGuia', component: GuardarGuiaComponent}
+    {path: 'guardar-nueva-guia/:nombreGuia', component: GuardarGuiaComponent},
+    {path: '**', redirectTo: 'guias'}
   ]},
   { path: '**', redirectTo: 'login' }
 ];

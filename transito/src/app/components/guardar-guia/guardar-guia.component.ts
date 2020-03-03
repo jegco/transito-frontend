@@ -9,6 +9,8 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ErrorService } from 'src/app/errors/services/error.service';
 import { Documento } from 'src/app/models/Documento';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
 @Component({
   selector: 'app-guardar-guia',
@@ -17,15 +19,11 @@ import { Documento } from 'src/app/models/Documento';
 })
 export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
-  pasos = new Array<Paso>();
-  titulo = '';
-  descripcion = '';
-  tipo = '';
   files: Map<number, any[]> = new Map();
-  archivosGuia: any[] = [];
-  documentosGuia = new Array<Documento>();
   showSpinner = false;
-  guia = new GuiaDeTramite("", this.titulo, this.descripcion, this.documentosGuia, this.pasos, this.tipo);
+  editorGuia = ClassicEditor;
+  editorPasoGuia = ClassicEditor;
+  guia = new GuiaDeTramite('', '', '', new Array<Documento>(), new Array<Paso>(), '');
 
   constructor(
     public readonly router: Router,
@@ -39,24 +37,12 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params
-    .pipe(
-      map(params => params['nombreGuia']),
-      switchMap(nombre => this.guiasService.buscarGuiaPorTitulo(nombre)))
+      .pipe(
+        map(params => params['nombreGuia']),
+        switchMap(nombre => this.guiasService.buscarGuiaPorTitulo(nombre)))
       .subscribe(guia => {
-        if(guia) {
+        if (guia) {
           this.guia = guia;
-          this.guia.pasos.forEach((paso, index) => {
-            paso.anexos.forEach(documento => {
-              if (this.files.has(index)) {
-                this.files.get(index).push(documento);
-              } else {
-                this.files.set(index, [documento]);
-              }
-            })
-          });
-          this.guia.formularios.map((documento, key) => {
-            this.files.set(key, [documento]);
-          })
         }
       }, error => this.handleException(error));
   }
@@ -67,18 +53,21 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
   uploadFile(key: number, event: any) {
     this.showSpinner = true;
-    for (let index = 0; index < event.length; index++) {
-      const element = event[index];
-      this.documentoService.guardarDocumento(element)
-      .subscribe(documento => {
-        debugger;
-        this.showSpinner = false
-        this.guia.pasos[key].anexos.push(documento);
-      }, error => {
-        this.showSpinner = false;
-        this.handleException(error)
-      });
-
+    if (event.length > 0) {
+      for (let index = 0; index < event.length; index++) {
+        const element = event[index];
+        this.documentoService.guardarDocumento(element)
+          .subscribe(documento => {
+            debugger;
+            this.showSpinner = false
+            this.guia.pasos[key].anexos.push(documento);
+          }, error => {
+            this.showSpinner = false;
+            this.handleException(error)
+          });
+      }
+    } else {
+      this.showSpinner = false;
     }
   }
 
@@ -96,8 +85,8 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
           this.showSpinner = false;
           this.guia.formularios.push(documento);
         }, error => this.handleException(error));
+    }
   }
-}
 
   deleteAttachmentGuia(index: number) {
     this.guia.formularios.splice(index, 1)
@@ -125,11 +114,21 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
         this.showSpinner = false;
         this.handleException(error)
       });
-      
+
   }
 
   obtenerArchivosEnGuia() {
     return this.guia.formularios;
+  }
+
+  actualizarDescripcion({ editor }: ChangeEvent) {
+    const data = editor.getData();
+    this.guia.descripcion = data;
+  }
+
+  actualizarDescripcionEnPaso({ editor }: ChangeEvent, index: number) {
+    const data = editor.getData();
+    this.guia.pasos[index].descripcion = data;
   }
 
 }

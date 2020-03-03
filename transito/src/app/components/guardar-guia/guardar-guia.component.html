@@ -16,15 +16,14 @@
                     <tr>
                         <td>
                             <mat-form-field class="guia-full-width">
-                                <input matInput placeholder="tipo" type="text" [(ngModel)]="guia.tipo" name="tipo" required />
+                                <input matInput placeholder="tipo" type="text" [(ngModel)]="guia.tipo" name="tipo"
+                                    required />
                             </mat-form-field>
                         </td>
                     </tr>
                     <tr>
                         <td>
-                            <mat-form-field class="guia-full-width">
-                                <textarea matInput placeholder="descripcion" type="text" [(ngModel)]="guia.descripcion" name="descripcion" required></textarea>
-                            </mat-form-field>
+                            <quill-editor placeholder="Escriba la descripcion de la guia" [(ngModel)]="guia.descripcion" name="descripcion-paso"></quill-editor>
                         </td>
                     </tr>
                     <tr>
@@ -47,19 +46,23 @@
 
                                     <div class="paso-container">
                                         <mat-form-field class="guia-full-width">
-                                            <input matInput placeholder="titulo" name="titulo-paso" [value]="paso.titulo">
+                                            <input matInput placeholder="titulo" name="titulo-paso"
+                                                [value]="paso.titulo">
                                         </mat-form-field>
-                                        <mat-form-field class="guia-full-width">
-                                            <textarea matInput placeholder="descripcion" type="text" name="descripcion-paso" [value]="paso.descripcion" required></textarea>
-                                        </mat-form-field>
+                                        <mat-label>Descripcion</mat-label>
+                                        <quill-editor placeholder="Ingresa la descripcion del paso" [(ngModel)]="paso.descripcion" name="descripcion-paso"></quill-editor>
                                         <div>
-                                            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile(key, $event)">
-                                                <input hidden type="file" #fileInput (change)="uploadFile(key, $event.target.files)">
+                                            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                                                (onFileDropped)="uploadFile(key, $event)">
+                                                <input hidden type="file" #fileInput
+                                                    (change)="uploadFile(key, $event.target.files)">
                                             </div>
-                                            <div class="files-list" *ngFor="let file of obtenerArchivosEnPaso(key);let i= index">
+                                            <div class="files-list"
+                                                *ngFor="let file of obtenerArchivosEnPaso(key);let i= index">
                                                 <p> {{ file.nombre }} </p>
 
-                                                <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachment(key, i)" aria-label="Example delete icon">
+                                                <mat-icon aria-hidden="false" class="delete-file"
+                                                    (click)="deleteAttachment(key, i)" aria-label="Example delete icon">
                                                     delete</mat-icon>
 
                                             </div>
@@ -72,13 +75,15 @@
                     <tr>
                         <td>
                             <div>
-                                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileGuia($event)">
+                                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                                    (onFileDropped)="uploadFileGuia($event)">
                                     <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files)">
                                 </div>
                                 <div class="files-list" *ngFor="let file of obtenerArchivosEnGuia() ;let i= index">
                                     <p> {{ file.nombre }} </p>
 
-                                    <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i)" aria-label="Example delete icon">
+                                    <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i)"
+                                        aria-label="Example delete icon">
                                         delete</mat-icon>
                                 </div>
                             </div>

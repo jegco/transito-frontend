@@ -1,33 +1,50 @@
-
-.register-container
-    position: absolute
-    top: 0
-    bottom: 0
-    left: 0
-    right: 0
-    overflow: hidden
-    z-index: -1
-    background-color: blue
+body, .register-container
+    background-color: white
     display: flex
+    flex-direction: row
     justify-content: center
     align-items: center
-    z-index: 1
 
-.btn-register
-    background-color: green
-    text-decoration-color: white
+.volver-login-btn
+    color: blue
+
+.mat-card
+    display: flex
+    justify-content: center
+
+mat-card-content
+    display: flex
+    flex-direction: column
+
+.logo
+    width: 40%
+    height: 40%
+
+.form-container
+    display: flex
+    flex-direction: column
     color: white
+    width: 70%
 
-
-.register-form 
-    color: white
-    width: 28%
+.icon-container
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 70%
 
 .register-card
     display: flex
-    flex-direction: column
+    flex-direction: row
     align-items: center
+    justify-content: center
+    flex: 4 3
     width: 100%
+
+mat-card-actions
+    display: flex
+    flex-direction: row
+    justify-content: space-around
 
 ::placeholder 
     /* Chrome, Firefox, Opera, Safari 10.1+ */

@@ -1,50 +1,64 @@
-<div class="container-fluid register-container">
-    <form class="register-form" (keydown.enter)="register()" ngNativeValidate>
-        <mat-card class="register-card">
-            <mat-card-header>
-            <mat-card-title>Create new account</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <table class="register-full-width" cellspacing="0">
-                    <tr>
-                        <td>
-                        <mat-form-field class="register-full-width">
-                        <input matInput placeholder="Nombre de usuario" [(ngModel)]="username" name="username" required>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid register-container">
+        <form class="register-form" (keydown.enter)="register()" ngNativeValidate>
+            <mat-card class="register-card">
+                <div class="form-container">
+                    <mat-card-header>
+                        <mat-card-title>Crear nueva cuenta</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+
+                        <mat-form-field class="register-full-width" appearance="outline">
+                            <mat-label>Nombre de usuario</mat-label>
+                            <input matInput [(ngModel)]="username" name="username" required>
                         </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><mat-form-field class="register-full-width">
-                            <input matInput placeholder="Correo electronico" type="email" [(ngModel)]="email" name="email" required>
+
+                        <mat-form-field class="register-full-width" appearance="outline">
+                            <mat-label>Correo electronico</mat-label>
+                            <input matInput placeholder="Correo electronico" type="email" [(ngModel)]="email"
+                                name="email" required>
                         </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><mat-form-field class="register-full-width">
-                            <input matInput placeholder="Numero de telefono" type="number" [(ngModel)]="phoneNumber" name="phoneNumber" required>
+
+                        <mat-form-field class="register-full-width" appearance="outline">
+                            <mat-label>Numero de telefono</mat-label>
+                            <input matInput placeholder="Numero de telefono" type="number" [(ngModel)]="phoneNumber"
+                                name="phoneNumber" required>
                         </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><mat-form-field class="register-full-width">
-                            <input matInput placeholder="Contraseña" type="password" [(ngModel)]="password" name="password" required>
+
+                        <mat-form-field class="register-full-width" appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput type="password" [(ngModel)]="password" name="password" required>
                         </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><mat-form-field class="register-full-width">
-                            <input matInput placeholder="Confirmar contraseña" type="password" [(ngModel)]="confirmPassword" name="confirmPassword" required>
+
+                        <mat-form-field class="register-full-width" appearance="outline">
+                            <mat-label>Confirmar contraseña</mat-label>
+                            <input matInput type="password" [(ngModel)]="confirmPassword" name="confirmPassword"
+                                required>
                         </mat-form-field>
-                        </td>
-                    </tr>
-                </table>
-            
-            </mat-card-content>
-            <mat-card-actions>
-            <button mat-raised-button (click)="register()" color="primary">Register</button>
-            </mat-card-actions>
-            <a href="javascript:void(0);" (click)="openPage('login')">volver a login</a>
-            <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
-        </mat-card>
-    </form>
-</div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <button mat-button (click)="openPage('login')" class="volver-login-btn">Volver a login</button>
+                        <button mat-raised-button (click)="register()" color="primary">Registrarse</button>
+                    </mat-card-actions>
+                    <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
+                </div>
+                <div class="icon-container">
+                    <img mat-card-image src="../../../assets/img/DATT.jpg" class="logo">
+                </div>
+            </mat-card>
+        </form>
+
+    </div>
+</body>
+
+</html>

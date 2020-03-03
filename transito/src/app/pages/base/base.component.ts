@@ -25,6 +25,7 @@ export class BaseComponent {
     if(handledError.toastNotifiation) {
     this.toast.error(handledError.message);
     } else {
+      debugger;
       this.errorMessage = handledError.message;
     }
   }

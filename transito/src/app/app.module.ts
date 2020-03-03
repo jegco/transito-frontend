@@ -23,6 +23,7 @@ import { DragDropDirective } from './directives/DragDropDirective';
 import { UploadFilesComponent } from './components/upload-files/upload-files.component';
 import { TableComponent } from './components/table/table.component';
 import { ToastrModule } from 'ngx-toastr';
+import { QuillModule } from 'ngx-quill';
 
 @NgModule({
   declarations: [
@@ -54,7 +55,8 @@ import { ToastrModule } from 'ngx-toastr';
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatTableModule,
-    ToastrModule
+    ToastrModule,
+    QuillModule.forRoot()
   ],
   providers: [{
       provide: HTTP_INTERCEPTORS,

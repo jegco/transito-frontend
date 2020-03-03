@@ -1,31 +1,53 @@
-<div class="container-fluid login-container">
-    <form class="login-form" (keydown.enter)="login()" ngNativeValidate>
-        <mat-card class="login-card">
-            <mat-card-header>
-            <mat-card-title>Login</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <table class="login-full-width" cellspacing="0">
-                <tr>
-                    <td>
-                    <mat-form-field class="login-full-width">
-                    <input matInput placeholder="Username" [(ngModel)]="username" name="username" required />
-                    </mat-form-field>
-                    </td>
-                </tr>
-                <tr>
-                <td><mat-form-field class="login-full-width">
-                    <input matInput placeholder="Password" type="password" [(ngModel)]="password" name="password" required />
-                </mat-form-field></td>
-                </tr></table>
-            
-            </mat-card-content>
-            <mat-card-actions>
-            <button mat-raised-button (click)="login()" color="primary">Login</button>
-            </mat-card-actions>
-            <a href="javascript:void(0)" (click)="openPage('register')">crear nueva cuenta</a>
-            <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
-        </mat-card>
-        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
-    </form>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Administrador de guias de tramites</title>
+</head>
+
+<body>
+    <div class="container-fluid login-container">
+        <form class="login-form" (keydown.enter)="login()" ngNativeValidate>
+            <mat-card class="login-card">
+                <img mat-card-image src="../../../assets/img/DATT.jpg" class="logo">
+                <mat-card-header>
+                    <mat-card-title>Iniciar sesion</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <table class="login-full-width" cellspacing="0">
+                        <tr>
+                            <td>
+                                <mat-form-field class="login-full-width" appearance="outline">
+                                    <mat-label>Nombre de usuario</mat-label>
+                                    <input matInput [(ngModel)]="username" name="username"
+                                        required />
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <mat-form-field class="login-full-width" appearance="outline">
+                                   <mat-label>Contraseña</mat-label>
+                                    <input matInput type="password" [(ngModel)]="password"
+                                        name="password" required />
+                                </mat-form-field>
+                            </td>
+                        </tr>
+                    </table>
+
+                </mat-card-content>
+                <mat-card-actions>
+                    <button mat-button (click)="openPage('register')">Crear nueva cuenta</button>
+                    <button mat-raised-button (click)="login()" color="primary">Login</button>
+                </mat-card-actions>
+                <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
+            </mat-card>
+            <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
+        </form>
+    </div>
+</body>
+
+</html>
