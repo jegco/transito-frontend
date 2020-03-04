@@ -10,7 +10,8 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ErrorsModule } from './errors/errors.module';
 import {
   MatButtonModule, MatCardModule, MatInputModule, MatTableModule,
-  MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule, MatExpansionModule
+  MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule, 
+  MatExpansionModule, MatSidenavModule, MatDividerModule
 } from '@angular/material';
 import { HttpErrorInterceptor } from './errors/services/http-error-interceptor';
 import { HttpAuthInterceptor } from './providers/auth/HttpAuthInterceptor';
@@ -24,6 +25,7 @@ import { UploadFilesComponent } from './components/upload-files/upload-files.com
 import { TableComponent } from './components/table/table.component';
 import { ToastrModule } from 'ngx-toastr';
 import { QuillModule } from 'ngx-quill';
+import { DocumentosComponent } from './pages/documentos/documentos.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { QuillModule } from 'ngx-quill';
     GuardarGuiaComponent,
     DragDropDirective,
     UploadFilesComponent,
-    TableComponent
+    TableComponent,
+    DocumentosComponent
   ],
   imports: [
     BrowserModule,
@@ -50,8 +53,10 @@ import { QuillModule } from 'ngx-quill';
     MatButtonModule,
     MatInputModule,
     MatToolbarModule,
+    MatSidenavModule,
     MatIconModule,
     MatMenuModule,
+    MatDividerModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatTableModule,

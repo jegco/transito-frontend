@@ -1,3 +1,8 @@
 #toast-container > div {
     opacity:1;
 }
+
+body {
+    height: 100%;
+    width: 100%;
+}

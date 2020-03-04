@@ -10,7 +10,8 @@ import { Paso } from 'src/app/models/Paso';
 })
 export class DocumentosService {
 
-  url: string = ENV.serverUrl + '/documentos';
+  url: string = `${ENV.serverUrl}/documentos`;
+  resourceUrl: string = `${this.url}/resources`;
 
   constructor(private readonly http: HttpService) { }
 
@@ -20,5 +21,17 @@ export class DocumentosService {
 
   guardarDocumento(documentos: any): Observable<Documento> {
     return this.http.postMultipart<any, Documento>(this.url, documentos);
+  }
+
+  buscarDocumentos(): Observable<Documento[]> {
+    return this.http.get<Documento[]>(this.url);
+  }
+
+  buscarDocumentoPorNombre(nombre: string): Observable<Documento> {
+    return this.http.getResource<Documento>(this.url, nombre);
+  }
+
+  eliminarDocumento(documento: Documento): Observable<void> {
+    return this.http.delete<Documento>(this.url, documento);
   }
 }

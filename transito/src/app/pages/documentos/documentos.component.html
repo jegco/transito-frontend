@@ -1,0 +1,12 @@
+
+<app-table *ngIf="documentos.length !== 0" 
+[displayedColumns]="columnas" 
+[dataSource]="documentosTbDatasource"
+[hasActions]=true
+[showUpdate]=true
+[showProperties]=true
+[showDelete]=true
+(update)="actualizarDocumento($event)"
+(delete)="eliminarDocumento($event)"
+></app-table>
+<mat-card *ngIf="documentos.length == 0">No se encontraron documentos guardadas hasta el momento</mat-card>

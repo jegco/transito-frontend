@@ -50,7 +50,6 @@ export class GuiasdetramiteComponent extends BaseComponent implements OnInit {
   }
 
   eliminarGuia(index: number) {
-    debugger;
     this.guiasService.eliminarGuia(this.guias[index]).subscribe(() => {
     this.toast.success('Guia eliminada correctamente');
     this.guias = this.guias.splice(index, 1);

@@ -9,7 +9,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ErrorService } from 'src/app/errors/services/error.service';
 import { Documento } from 'src/app/models/Documento';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
 
 @Component({
@@ -21,8 +20,6 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
   files: Map<number, any[]> = new Map();
   showSpinner = false;
-  editorGuia = ClassicEditor;
-  editorPasoGuia = ClassicEditor;
   guia = new GuiaDeTramite('', '', '', new Array<Documento>(), new Array<Paso>(), '');
 
   constructor(
@@ -58,7 +55,6 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
         const element = event[index];
         this.documentoService.guardarDocumento(element)
           .subscribe(documento => {
-            debugger;
             this.showSpinner = false
             this.guia.pasos[key].anexos.push(documento);
           }, error => {

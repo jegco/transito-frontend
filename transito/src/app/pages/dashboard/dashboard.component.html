@@ -9,27 +9,41 @@
 </head>
 
 <body>
-  <mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>Administrador de guias de tramites</span>
-      <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-      <span class="nav-spacer"></span>
-    
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item routerLink="/dashboard/guias">Guias</button>
-        <button mat-menu-item routerLink="/dashboard/preferencias">Preferencias</button>
-      </mat-menu>
 
-      <mat-icon class="nav-icon" aria-hidden="false" aria-label="Perfil" mat-button
-        [matMenuTriggerFor]="menuPeople">person</mat-icon>
-      <mat-menu #menuPeople="matMenu">
-        <button mat-menu-item>Perfil</button>
-        <button mat-menu-item (click)="cerrarSesion()">Cerrar sesion</button>
-      </mat-menu>
-    </mat-toolbar-row>
-  </mat-toolbar>
-  <!-- Navbar -->
-  <div class="main-panel">
+  <div class="nav-container">
+    <mat-toolbar class="toolbar">
+      <mat-toolbar-row>
+        <img src="../../../assets/img/DATT.jpg" alt="" class="logo">
+        <span>Administrador de guias de tramites</span>
+        <span class="nav-spacer"></span>
+        <mat-icon class="nav-icon" aria-hidden="false" aria-label="Perfil" mat-button [matMenuTriggerFor]="menuPeople">
+          person</mat-icon>
+        <mat-menu #menuPeople="matMenu">
+          <button mat-menu-item>Perfil</button>
+          <button mat-menu-item (click)="cerrarSesion()">Cerrar sesion</button>
+        </mat-menu>
+      </mat-toolbar-row>
+    </mat-toolbar>
+  </div>
+
+  <div class="menu-container">
+    <button mat-menu-item routerLink="/dashboard/guias">
+      <mat-icon class="nav-icon" aria-hidden="false" aria-label="Guia" mat-button>
+        chrome_reader_mode</mat-icon>
+      Guias
+    </button>
+    <button mat-menu-item routerLink="/dashboard/documentos">
+      <mat-icon class="nav-icon" aria-hidden="false" aria-label="Guia" mat-button>
+        description</mat-icon>
+      Documentos
+    </button>
+    <button mat-menu-item routerLink="/dashboard/preferencias">
+      <mat-icon class="nav-icon" aria-hidden="false" aria-label="Guia" mat-button>
+        settings</mat-icon>
+      Preferencias
+    </button>
+  </div>
+  <div class="container">
     <router-outlet></router-outlet>
   </div>
 </body>
