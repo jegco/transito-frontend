@@ -18,9 +18,12 @@ body {
 
 
 .btn-login {
-    background-color: green;
-    text-decoration-color: white;
+    background: -webkit-linear-gradient(top, #106B0A 0, #189F0F 100%) no-repeat;
     color: white
+}
+
+.btn-registrarse {
+    color: green;
 }
 
 .login-form {
@@ -54,7 +57,7 @@ body {
     color: red
 }
 
-mat-card, mat-card-header, mat-card-header .mat-card-header-text, mat-card-content *, mat-card-content:not([name = mat-form-field])
+mat-card, mat-card-header, mat-card-header .mat-card-header-text, mat-card-content:not([name = mat-form-field])
  {
      padding: 2%;
     display: flex;

@@ -1,6 +1,24 @@
 .floating-button-guias {
     position: fixed;
-    bottom: 10%;
+    bottom: 2%;
     right: 2%;
     background: -webkit-linear-gradient(top, #106B0A 0, #189F0F 100%) no-repeat;
+}
+
+.guias-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.guia-card {
+    margin: 1%;
+    height: 230px;
+    width: 30%;
+    height: 230px;
+}
+
+.guia-subtitulo {
+    overflow: auto;
 }

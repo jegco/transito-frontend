@@ -7,19 +7,23 @@ import { GuiasdetramiteComponent } from '../pages/guiasdetramite/guiasdetramite.
 import { PreferenciasComponent } from '../pages/preferencias/preferencias.component';
 import { GuardarGuiaComponent } from '../components/guardar-guia/guardar-guia.component';
 import { DocumentosComponent } from '../pages/documentos/documentos.component';
+import { GuiaDetallesComponent } from '../pages/guia-detalles/guia-detalles.component';
 
 
 const routes: Routes = [
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent},
-  {path: 'dashboard', component: DashboardComponent, children: [
-    {path: 'guias', component: GuiasdetramiteComponent},
-    {path: 'preferencias', component: PreferenciasComponent},
-    {path: 'guardar-nueva-guia', component: GuardarGuiaComponent},
-    {path: 'guardar-nueva-guia/:nombreGuia', component: GuardarGuiaComponent},
-    {path: 'documentos', component: DocumentosComponent},
-    {path: '**', redirectTo: 'guias'}
-  ]},
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent },
+  {
+    path: 'dashboard', component: DashboardComponent, children: [
+      { path: 'guias', component: GuiasdetramiteComponent },
+      { path: 'guias/:nombreGuia', component: GuiaDetallesComponent },
+      { path: 'preferencias', component: PreferenciasComponent },
+      { path: 'guardar-nueva-guia', component: GuardarGuiaComponent },
+      { path: 'guardar-nueva-guia/:nombreGuia', component: GuardarGuiaComponent },
+      { path: 'documentos', component: DocumentosComponent },
+      { path: '**', redirectTo: 'guias' }
+    ]
+  },
   { path: '**', redirectTo: 'login' }
 ];
 

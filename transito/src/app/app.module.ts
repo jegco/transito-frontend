@@ -11,7 +11,7 @@ import { ErrorsModule } from './errors/errors.module';
 import {
   MatButtonModule, MatCardModule, MatInputModule, MatTableModule,
   MatToolbarModule, MatMenuModule, MatIconModule, MatProgressSpinnerModule, 
-  MatExpansionModule, MatSidenavModule, MatDividerModule
+  MatExpansionModule, MatSidenavModule, MatDividerModule, MatPaginatorModule
 } from '@angular/material';
 import { HttpErrorInterceptor } from './errors/services/http-error-interceptor';
 import { HttpAuthInterceptor } from './providers/auth/HttpAuthInterceptor';
@@ -26,6 +26,9 @@ import { TableComponent } from './components/table/table.component';
 import { ToastrModule } from 'ngx-toastr';
 import { QuillModule } from 'ngx-quill';
 import { DocumentosComponent } from './pages/documentos/documentos.component';
+import { GuiaDetallesComponent } from './pages/guia-detalles/guia-detalles.component';
+import { GuiaCardComponent } from './components/guia-card/guia-card.component';
+import { SpeedDialFloatingButtonComponent } from './components/speed-dial-floating-button/speed-dial-floating-button.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { DocumentosComponent } from './pages/documentos/documentos.component';
     DragDropDirective,
     UploadFilesComponent,
     TableComponent,
-    DocumentosComponent
+    DocumentosComponent,
+    GuiaDetallesComponent,
+    GuiaCardComponent,
+    SpeedDialFloatingButtonComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +67,7 @@ import { DocumentosComponent } from './pages/documentos/documentos.component';
     MatExpansionModule,
     MatTableModule,
     ToastrModule,
+    MatPaginatorModule,
     QuillModule.forRoot()
   ],
   providers: [{

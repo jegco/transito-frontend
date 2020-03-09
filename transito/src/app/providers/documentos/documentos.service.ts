@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { environment as ENV } from '../../../environments/environment';
 import { HttpService } from '../base/http.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Documento } from 'src/app/models/Documento';
-import { Paso } from 'src/app/models/Paso';
+import { Page } from 'src/app/models/Page';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ export class DocumentosService {
     return this.http.postMultipart<any, Documento>(this.url, documentos);
   }
 
-  buscarDocumentos(): Observable<Documento[]> {
-    return this.http.get<Documento[]>(this.url);
+  buscarDocumentos(): Observable<Page<Documento>> {
+    return this.http.get<Documento[]>(this.url).pipe(map(documentos =>  new Page<Documento>(documentos)));
   }
 
   buscarDocumentoPorNombre(nombre: string): Observable<Documento> {

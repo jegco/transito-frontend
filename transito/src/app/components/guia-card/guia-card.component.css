@@ -1,0 +1,18 @@
+.mat-card {
+    height: 230px;
+    display: flex;
+    flex-direction: column;
+}
+
+mat-card-content {
+    overflow: hidden;
+    height: 40%;
+}
+
+mat-card-header {
+    height: 30%;
+}
+
+mat-card-actions {
+    height: 10%;
+}

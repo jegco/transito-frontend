@@ -12,36 +12,24 @@
     <div class="container-fluid login-container">
         <form class="login-form" (keydown.enter)="login()" ngNativeValidate>
             <mat-card class="login-card">
-                <img mat-card-image src="../../../assets/img/DATT.jpg" class="logo">
+                <img mat-card-image src="../../../assets/img/DATT.png" class="logo">
                 <mat-card-header>
                     <mat-card-title>Iniciar sesion</mat-card-title>
                 </mat-card-header>
                 <mat-card-content>
-                    <table class="login-full-width" cellspacing="0">
-                        <tr>
-                            <td>
-                                <mat-form-field class="login-full-width" appearance="outline">
-                                    <mat-label>Nombre de usuario</mat-label>
-                                    <input matInput [(ngModel)]="username" name="username"
-                                        required />
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <mat-form-field class="login-full-width" appearance="outline">
-                                   <mat-label>Contraseña</mat-label>
-                                    <input matInput type="password" [(ngModel)]="password"
-                                        name="password" required />
-                                </mat-form-field>
-                            </td>
-                        </tr>
-                    </table>
+                    <mat-form-field class="login-full-width" appearance="outline">
+                        <mat-label>Nombre de usuario</mat-label>
+                        <input matInput [(ngModel)]="username" name="username" required />
+                    </mat-form-field>
+                    <mat-form-field class="login-full-width" appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput type="password" [(ngModel)]="password" name="password" required />
+                    </mat-form-field>
 
                 </mat-card-content>
                 <mat-card-actions>
-                    <button mat-button (click)="openPage('register')">Crear nueva cuenta</button>
-                    <button mat-raised-button (click)="login()" color="primary">Login</button>
+                    <button mat-button (click)="openPage('register')" class="btn-registrarse">Crear nueva cuenta</button>
+                    <button mat-raised-button (click)="login()" class="btn-login">Iniciar sesion</button>
                 </mat-card-actions>
                 <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
             </mat-card>

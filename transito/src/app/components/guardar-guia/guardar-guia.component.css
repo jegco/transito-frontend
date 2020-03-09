@@ -1,8 +1,7 @@
 .guia-acordeon {
     padding-left: 2px;
     padding-right: 2px;
-    margin-left: 2px;
-    margin-right: 2px;
+    margin: 1% 0 1% 0;
     width: auto;
     display: block;
 }
@@ -68,4 +67,11 @@ textarea {
     position: fixed;
     bottom: 0;
     right: 0;
+}
+
+.floating-button-guias {
+    position: fixed;
+    bottom: 2%;
+    right: 2%;
+    background: -webkit-linear-gradient(top, #106B0A 0, #189F0F 100%) no-repeat;
 }

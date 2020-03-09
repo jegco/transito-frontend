@@ -48,12 +48,12 @@
                     </mat-card-content>
                     <mat-card-actions>
                         <button mat-button (click)="openPage('login')" class="volver-login-btn">Volver a login</button>
-                        <button mat-raised-button (click)="register()" color="primary">Registrarse</button>
+                        <button mat-raised-button (click)="register()" class="btn-registrarse">Registrarse</button>
                     </mat-card-actions>
                     <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
                 </div>
                 <div class="icon-container">
-                    <img mat-card-image src="../../../assets/img/DATT.jpg" class="logo">
+                    <img mat-card-image src="../../../assets/img/DATT.png" class="logo">
                 </div>
             </mat-card>
         </form>

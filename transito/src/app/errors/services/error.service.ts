@@ -15,7 +15,7 @@ export class ErrorService {
     let handledError;
     if (error instanceof HttpErrorResponse) {
       debugger;
-      if(error.status === 401) {
+      if(error.status === 401 || error.status === 0) {
         localStorage.removeItem('token');
         this.router.navigateByUrl('login');
         handledError = this.addContextInfo(error, false);

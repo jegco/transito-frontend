@@ -5,91 +5,31 @@
                 <mat-card-title>Guardar guia de tramites</mat-card-title>
             </mat-card-header>
             <mat-card-content>
-                <table class="guia-full-width" cellspacing="0">
-                    <tr>
-                        <td>
-                            <mat-form-field class="guia-full-width">
-                                <input matInput placeholder="Titulo" [(ngModel)]="guia.titulo" name="titulo" required />
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <mat-form-field class="guia-full-width">
-                                <input matInput placeholder="tipo" type="text" [(ngModel)]="guia.tipo" name="tipo"
-                                    required />
-                            </mat-form-field>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <quill-editor placeholder="Escriba la descripcion de la guia" [(ngModel)]="guia.descripcion" name="descripcion-paso"></quill-editor>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <button mat-raised-button (click)="addPaso()" color="primary">añadir paso</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <mat-accordion class="guia-acordeon">
-                                <mat-expansion-panel *ngFor="let paso of guia.pasos; let key = index">
-                                    <mat-expansion-panel-header>
-                                        <mat-panel-title>
-                                            Paso # {{ key+1 }}
-                                        </mat-panel-title>
-                                        <mat-panel-description>
-                                            Paso a seguir
-                                        </mat-panel-description>
-                                    </mat-expansion-panel-header>
 
-                                    <div class="paso-container">
-                                        <mat-form-field class="guia-full-width">
-                                            <input matInput placeholder="titulo" name="titulo-paso"
-                                                [value]="paso.titulo">
-                                        </mat-form-field>
-                                        <mat-label>Descripcion</mat-label>
-                                        <quill-editor placeholder="Ingresa la descripcion del paso" [(ngModel)]="paso.descripcion" name="descripcion-paso"></quill-editor>
-                                        <div>
-                                            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
-                                                (onFileDropped)="uploadFile(key, $event)">
-                                                <input hidden type="file" #fileInput
-                                                    (change)="uploadFile(key, $event.target.files)">
-                                            </div>
-                                            <div class="files-list"
-                                                *ngFor="let file of obtenerArchivosEnPaso(key);let i= index">
-                                                <p> {{ file.nombre }} </p>
+                <mat-form-field class="guia-full-width">
+                    <input matInput placeholder="Titulo" [(ngModel)]="guia.titulo" name="titulo" required />
+                </mat-form-field>
 
-                                                <mat-icon aria-hidden="false" class="delete-file"
-                                                    (click)="deleteAttachment(key, i)" aria-label="Example delete icon">
-                                                    delete</mat-icon>
+                <mat-form-field class="guia-full-width">
+                    <input matInput placeholder="tipo" type="text" [(ngModel)]="guia.tipo" name="tipo" required />
+                </mat-form-field>
 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </mat-expansion-panel>
-                            </mat-accordion>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div>
-                                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
-                                    (onFileDropped)="uploadFileGuia($event)">
-                                    <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files)">
-                                </div>
-                                <div class="files-list" *ngFor="let file of obtenerArchivosEnGuia() ;let i= index">
-                                    <p> {{ file.nombre }} </p>
+                <quill-editor placeholder="Escriba la descripcion de la guia" [(ngModel)]="guia.descripcion"
+                    name="descripcion-guia"></quill-editor>
 
-                                    <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i)"
-                                        aria-label="Example delete icon">
-                                        delete</mat-icon>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
+                <div>
+                    <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                        (onFileDropped)="uploadFileGuia($event)">
+                        <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files)">
+                    </div>
+                    <div class="files-list" *ngFor="let file of obtenerArchivosEnGuia() ;let i= index">
+                        <p> {{ file.nombre }} </p>
+
+                        <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i)"
+                            aria-label="Example delete icon">
+                            delete</mat-icon>
+                    </div>
+                </div>
 
             </mat-card-content>
             <mat-card-actions>
@@ -97,6 +37,50 @@
             </mat-card-actions>
             <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
         </mat-card>
+
+        <mat-accordion class="guia-acordeon">
+            <mat-expansion-panel *ngFor="let paso of guia.pasos; let key = index">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Paso # {{ key+1 }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Paso a seguir
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div class="paso-container">
+                    <mat-form-field class="guia-full-width">
+                        <input matInput placeholder="titulo" name="titulo-paso" [value]="paso.titulo">
+                    </mat-form-field>
+                    <mat-label>Descripcion</mat-label>
+                    <quill-editor placeholder="Ingresa la descripcion del paso" [(ngModel)]="paso.descripcion"
+                        name="descripcion-paso"></quill-editor>
+                    <div>
+                        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                            (onFileDropped)="uploadFile(key, $event)">
+                            <input hidden type="file" #fileInput
+                                (change)="uploadFile(key, $event.target.files)">
+                        </div>
+                        <div class="files-list" *ngFor="let file of obtenerArchivosEnPaso(key);let i= index">
+                            <p> {{ file.nombre }} </p>
+
+                            <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachment(key, i)"
+                                aria-label="Example delete icon">
+                                delete</mat-icon>
+
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
         <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
     </form>
+
+    <!-- <a mat-fab href="javascript:void(0)" (click)="addPaso()" class="floating-button-guias">
+        <mat-icon>add</mat-icon>
+    </a> -->
+
+    <app-speed-dial-floating-button [fabButtons]="buttonOptions" (actionBtn)="doAction($event)"></app-speed-dial-floating-button>
 </div>
