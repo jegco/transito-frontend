@@ -1,0 +1,11 @@
+<app-table *ngIf="usuariosTbDatasource.length !== 0" 
+[displayedColumns]="columnas" 
+[dataSource]="usuariosTbDatasource"
+[hasActions]=true
+[showUpdate]=true
+[showDelete]=true
+(update)="abrirEditarDialogo($event)"
+(delete)="eliminarUsuario($event)"
+></app-table>
+<mat-card *ngIf="usuariosTbDatasource.length === 0">No se encontraron documentos guardadas hasta el momento</mat-card>
+<mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>

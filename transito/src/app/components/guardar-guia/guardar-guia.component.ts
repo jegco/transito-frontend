@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Paso } from 'src/app/models/Paso';
 import { DocumentosService } from 'src/app/providers/documentos/documentos.service';
-import { map, tap, switchMap, defaultIfEmpty } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 import { GuiasService } from 'src/app/providers/guiasdetramites/guias.service';
 import { GuiaDeTramite } from 'src/app/models/GuiaDeTramite';
 import { BaseComponent } from 'src/app/pages/base/base.component';
@@ -10,7 +10,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ErrorService } from 'src/app/errors/services/error.service';
 import { Documento } from 'src/app/models/Documento';
 import { ChangeEvent } from '@ckeditor/ckeditor5-angular/ckeditor.component';
-import { Observable, of } from 'rxjs';
 
 @Component({
   selector: 'app-guardar-guia',
@@ -21,7 +20,7 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
   files: Map<number, any[]> = new Map();
   showSpinner = false;
-  guia = new GuiaDeTramite('', '', '', new Array<Documento>(), new Array<Paso>(), '');
+  guia: GuiaDeTramite;
   buttonOptions = [
     {
       icon: 'save',
@@ -41,10 +40,10 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
     private readonly documentoService: DocumentosService,
     private readonly guiasService: GuiasService) {
     super(router, errorService, toast);
+    this.guia = new GuiaDeTramite('', '', '', new Array<Documento>(), new Array<Paso>(), '');
   }
 
   ngOnInit() {
-    this.guia = new GuiaDeTramite('', '', '', new Array<Documento>(), new Array<Paso>(), '');
     this.activatedRoute.params
       .pipe(
         map(params => params['nombreGuia']),
@@ -57,8 +56,17 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
   }
 
   addPaso(): void {
-    debugger;
-    this.guia.pasos.push(new Paso('test titulo', 'test descripcion', []));
+    if (this.guia && this.guia.pasos) {
+      this.guia.pasos = [...this.guia.pasos, new Paso('test titulo', 'test descripcion', [])];
+    } else {
+      this.guia = new GuiaDeTramite(
+        '',
+        this.guia.titulo,
+        this.guia.descripcion,
+        new Array<Documento>(),
+        [new Paso('', '', [])],
+        '');
+    }
   }
 
   uploadFile(key: number, event: any) {
@@ -107,7 +115,6 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
   guardarGuia(): void {
     this.showSpinner = true;
-    debugger;
     this.guiasService.guardarGuia(new GuiaDeTramite(
       this.guia.id ? this.guia.id : '',
       this.guia.titulo ? this.guia.titulo : '',
@@ -121,9 +128,8 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
         this.toast.success('Se guardo la guia correctamente');
       }, error => {
         this.showSpinner = false;
-        this.handleException(error)
+        this.handleException(error);
       });
-
   }
 
   obtenerArchivosEnGuia() {
@@ -141,7 +147,6 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
   }
 
   doAction(action) {
-    debugger;
     action === 'guardarGuia' ? this.guardarGuia() : this.addPaso();
   }
 

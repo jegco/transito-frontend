@@ -15,7 +15,8 @@
                 </mat-form-field>
 
                 <quill-editor placeholder="Escriba la descripcion de la guia" [(ngModel)]="guia.descripcion"
-                    name="descripcion-guia"></quill-editor>
+                    name="descripcion-guia">
+                </quill-editor>
 
                 <div>
                     <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
@@ -32,9 +33,6 @@
                 </div>
 
             </mat-card-content>
-            <mat-card-actions>
-                <button mat-raised-button (click)="guardarGuia()" color="primary">Guardar</button>
-            </mat-card-actions>
             <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
         </mat-card>
 
@@ -77,10 +75,6 @@
 
         <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
     </form>
-
-    <!-- <a mat-fab href="javascript:void(0)" (click)="addPaso()" class="floating-button-guias">
-        <mat-icon>add</mat-icon>
-    </a> -->
 
     <app-speed-dial-floating-button [fabButtons]="buttonOptions" (actionBtn)="doAction($event)"></app-speed-dial-floating-button>
 </div>

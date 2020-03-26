@@ -21,7 +21,7 @@ export class GuiaCardComponent {
   }
 
   descripcionComoHTML(descripcion: string) {
-    return this.sanitizer.bypassSecurityTrustHtml(this.guia.descripcion);
+    return this.sanitizer.bypassSecurityTrustHtml(descripcion);
   }
 
   eliminarGuia(guia): void {

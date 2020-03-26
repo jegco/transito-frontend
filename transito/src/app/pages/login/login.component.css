@@ -1,8 +1,10 @@
-body {
+.main-container {
     background-color: white;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    width: 100%;
+    justify-content: center;
+    height: 100%;
     align-items: center;
 }
 

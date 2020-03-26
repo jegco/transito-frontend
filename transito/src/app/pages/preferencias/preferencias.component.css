@@ -1,0 +1,30 @@
+.cp-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.colores-card, .animacion-card {
+    margin: 1%;
+}
+
+.animation-example {
+    width: 20%;
+    height: 20%;
+}
+
+@media only screen and (min-width: 600px) {
+    .colores-content, .animacion-content {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .colores-content, .animacion-content {
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+    }
+}

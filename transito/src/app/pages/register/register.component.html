@@ -1,14 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-
-<body>
+<div class="main-container">
     <div class="container-fluid register-container">
         <form class="register-form" (keydown.enter)="register()" ngNativeValidate>
             <mat-card class="register-card">
@@ -50,6 +40,7 @@
                         <button mat-button (click)="openPage('login')" class="volver-login-btn">Volver a login</button>
                         <button mat-raised-button (click)="register()" class="btn-registrarse">Registrarse</button>
                     </mat-card-actions>
+                    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
                     <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
                 </div>
                 <div class="icon-container">
@@ -57,8 +48,5 @@
                 </div>
             </mat-card>
         </form>
-
     </div>
-</body>
-
-</html>
+</div>

@@ -1,17 +1,3 @@
-// ===============================================================================================================
-// <copyright file="<http.service.ts>" company="Johnson Controls, Inc.">
-// copyright (c) 2019.
-//
-// use or copying of all or any part of the document, except as permitted
-// by the License Agreement is prohibited.
-//
-// </copyright>
-// ===============================================================================================================
-// <summary>
-// wrapper service to call API"s.
-// </summary>
-// ===============================================================================================================
-
 import {
     HttpClient,
     HttpEvent,

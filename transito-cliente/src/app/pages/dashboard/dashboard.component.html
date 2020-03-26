@@ -1,4 +1,6 @@
-<div *ngIf="guiasDeTramite.length > 0">
-    <app-guia-item *ngFor="let guiaTramite of guiasDeTramite" [guia]="guiaTramite" (details)="showDetails($event)"></app-guia-item>
+<div class="guias-container">
+    <app-guia-item class="guia-card" *ngFor="let guia of guiasDeTramite, let i = index" [guia]="guia"
+        (details)="showDetails($event)"></app-guia-item>
+    <mat-card *ngIf="guiasDeTramite.length === 0">No se encontraron guias guardadas hasta el momento</mat-card>
+    <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
 </div>
-<mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>

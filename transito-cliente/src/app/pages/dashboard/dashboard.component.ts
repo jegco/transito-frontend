@@ -31,9 +31,14 @@ export class DashboardComponent extends BaseComponent implements OnInit {
       map(params => params['searchParam']),
       switchMap(searchParam => this.guiasService.buscarGuias(searchParam)))
       .subscribe(guias => {
+        debugger;
         this.showSpinner = false;
         this.guiasDeTramite = guias;
-      }, error => this.handleException(error));
+      }, error => {
+        this.handleException(error);
+        this.showSpinner = false;
+        }
+      );
   }
 
   showDetails($event: GuiaDeTramite) {

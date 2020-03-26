@@ -8,6 +8,7 @@ import { PreferenciasComponent } from '../pages/preferencias/preferencias.compon
 import { GuardarGuiaComponent } from '../components/guardar-guia/guardar-guia.component';
 import { DocumentosComponent } from '../pages/documentos/documentos.component';
 import { GuiaDetallesComponent } from '../pages/guia-detalles/guia-detalles.component';
+import { UsuariosComponent } from '../pages/usuarios/usuarios.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,7 @@ const routes: Routes = [
       { path: 'guias', component: GuiasdetramiteComponent },
       { path: 'guias/:nombreGuia', component: GuiaDetallesComponent },
       { path: 'preferencias', component: PreferenciasComponent },
+      { path: 'usuarios', component: UsuariosComponent},
       { path: 'guardar-nueva-guia', component: GuardarGuiaComponent },
       { path: 'guardar-nueva-guia/:nombreGuia', component: GuardarGuiaComponent },
       { path: 'documentos', component: DocumentosComponent },

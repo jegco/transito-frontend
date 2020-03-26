@@ -1,20 +1,29 @@
-.guia-acordeon {
-    padding-left: 2px;
-    padding-right: 2px;
-    margin-left: 2px;
-    margin-right: 2px;
-    width: auto;
-    display: block;
+.guia-detalles-container {
+    background-color: #eee;
+    padding: 1%;
+    
 }
 
-.guia-full-width,
-td,
-tr {
-    width: auto;
-    display: block;
+.guia-detalle-header-image {
+    position: absolute;
+    margin-top: -30px;
+    border-color: #8B7F7F;
+    border-style: solid;
+    margin-left: -30px;
+    background-color: white;
+    text-align: center;
 }
 
-.paso-container {
-    display: flex;
-    flex-direction: column;
+.guia-detalle-header-image p {
+    position: relative;
+    top: 10%;
+    transform: translateY(-50%);
+}
+
+.guia-pasos-card {
+    margin: 1%;
+}
+
+.guia-detalle-card {
+    margin: 1% 1% 2% 0;
 }

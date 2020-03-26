@@ -13,6 +13,7 @@ export class ErrorService {
 
   handleException(error: Error) {
     let handledError;
+    debugger;
     if (error instanceof HttpErrorResponse) {
       debugger;
       if(error.status === 401 || error.status === 0) {

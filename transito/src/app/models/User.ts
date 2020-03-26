@@ -2,9 +2,11 @@
 
      constructor(
         public id: string, 
-        public nombreUsuario: string,
+        public nombreDeUsuario: string,
         public correoElectronico: string,
         public password: string,
-        public numeroDeTelefono: number) {}
+        public numeroDeTelefono: number,
+        public active: boolean,
+        public role: string) {}
      
 }

@@ -17,6 +17,7 @@ export class RegisterComponent extends BaseComponent {
   email: string;
   phoneNumber: number;
   confirmPassword: string;
+  showSpinner = false;
 
   constructor(public readonly router: Router
     , public readonly errorService: ErrorService
@@ -26,11 +27,17 @@ export class RegisterComponent extends BaseComponent {
   }
 
   register() {
-    if (this.username && this.password && this.email, this.phoneNumber) {
+    if (this.username && this.password && this.email && this.phoneNumber) {
       if (this.confirmPassword === this.password) {
+        this.showSpinner = true;
         this.loginService.register(this.username, this.email, this.password, this.phoneNumber)
-          .subscribe(res => this.toast.success('usuario creado exitosamente'), error => this.handleException(error)
-          )
+          .subscribe(() => {
+            this.showSpinner = false;
+            this.toast.success('usuario creado exitosamente');
+          }, error => {
+            this.handleException(error);
+            this.showSpinner = false;
+          })
       } else {
         this.errorMessage = 'Las contraseñas deben ser iguales';
       }

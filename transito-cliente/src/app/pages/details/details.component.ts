@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { map, switchMap } from 'rxjs/operators';
 import { GuiaDeTramite } from 'src/app/models/GuiaDeTramite';
 import { GuiasService } from 'src/app/providers/guias/guias.service';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-details',
@@ -20,7 +21,8 @@ export class DetailsComponent extends BaseComponent implements OnInit {
               public readonly errorService: ErrorService,
               public readonly toast: ToastrService,
               private activatedRoute: ActivatedRoute,
-              private guiasService: GuiasService) {
+              private guiasService: GuiasService,
+              private readonly sanitizer: DomSanitizer) {
     super(router, errorService, toast);
   }
 
@@ -30,9 +32,16 @@ export class DetailsComponent extends BaseComponent implements OnInit {
       map(params => params['nombreGuia']),
       switchMap(nombre => this.guiasService.buscarGuiaPorTitulo(nombre)))
       .subscribe(guia => {
-        debugger;
         this.guia = guia;
       }, error => this.handleException(error));
+  }
+
+  obtenerArchivosEnPaso(key: number): any[] {
+    return this.guia.pasos[key].anexos;
+  }
+
+  descripcionComoHTML(descripcion: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(this.guia.descripcion);
   }
 
 }

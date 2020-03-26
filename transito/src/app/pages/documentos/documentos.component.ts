@@ -36,7 +36,6 @@ export class DocumentosComponent extends BaseComponent implements OnInit {
       .buscarDocumentos()
       .subscribe(documentosPaged => {
         documentos = documentosPaged;
-        debugger;
         documentos.results.forEach(documento => {
           const nombre = documento.nombre;
           const fechaCreacion = documento.fechaCreacion;
