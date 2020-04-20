@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  serverUrl: 'http://estacionservicios.azurewebsites.net',
+  serverUrl: 'https://transito-app.herokuapp.com',
   name: 'production'
 };
