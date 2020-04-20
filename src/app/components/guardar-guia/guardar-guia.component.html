@@ -1,0 +1,113 @@
+<div class="container-fluid login-container" *ngIf="guia$ | async as guia">
+    <form class="guia-form" ngNativeValidate>
+        <mat-card class="guia-card">
+            <mat-card-header>
+                <mat-card-title>Guardar guia de tramites</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <mat-form-field class="guia-full-width">
+                    <input matInput placeholder="Titulo" [(ngModel)]="guia.titulo" name="titulo" required />
+                </mat-form-field>
+
+                <div class="container">
+                    <mat-radio-group *ngIf="tipos$ | async as tipos" [(ngModel)]="categoria" name="categoria">
+                        <mat-radio-button *ngFor="let tipo of tipos" class="example-margin" labelPosition="before"
+                            [value]="tipo">
+                            <div style="display: flex; justify-content: center">
+                                <img mat-card-avatar [src]="cargarMultimedia(tipo.icono)"
+                                    style="width: 45px; margin: 4%">
+                                <p>{{tipo.nombre}}</p>
+                            </div>
+                        </mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div class="container">
+                    <mat-checkbox *ngFor="let puntoDeAtencion of puntosDeAtencion" class="example-margin"
+                    [(ngModel)]="puntoDeAtencion.checked" labelPosition="before" name="puntoDeAtencion">
+                        <div style="display: flex; justify-content: center">
+                            <p>{{puntoDeAtencion.punto.nombre}}</p>
+                        </div>
+                    </mat-checkbox>
+                </div>
+
+                <!-- <mat-form-field>
+                    <mat-label>Puntos de atencion</mat-label>
+                    <mat-select *ngIf="puntos$ | async as puntos" [(value)]="guia.punto">
+                        <mat-option *ngFor="let punto of puntos" [value]="tipo">
+                            {{punto.nombre}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field> -->
+                <br />
+                <mat-label>Descripcion</mat-label>
+
+                <quill-editor placeholder="Escriba la descripcion de la guia" [(ngModel)]="guia.descripcion"
+                    name="descripcion-guia">
+                </quill-editor>
+
+                <mat-label>Soporte legal</mat-label>
+                <quill-editor placeholder="Escriba el soporte legal de la guia" [(ngModel)]="guia.soporteLegal"
+                    name="soporte-legal-guia">
+                </quill-editor>
+
+                <div>
+                    <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                        (onFileDropped)="uploadFileGuia($event, guia)">
+                        <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files, guia)">
+                    </div>
+                    <div class="files-list" *ngFor="let file of obtenerArchivosEnGuia(guia) ;let i= index">
+                        <p> {{ file.nombre }} </p>
+
+                        <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i, guia)"
+                            aria-label="Example delete icon">
+                            delete</mat-icon>
+                    </div>
+                </div>
+
+            </mat-card-content>
+            <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
+        </mat-card>
+
+        <mat-accordion class="guia-acordeon">
+            <mat-expansion-panel *ngFor="let paso of guia.pasos; let key = index">
+                <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Paso # {{ key+1 }}
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Paso a seguir
+                    </mat-panel-description>
+                </mat-expansion-panel-header>
+
+                <div class="paso-container">
+                    <mat-form-field class="guia-full-width">
+                        <input matInput placeholder="titulo" name="titulo-paso" [value]="paso.titulo">
+                    </mat-form-field>
+                    <mat-label>Descripcion</mat-label>
+                    <quill-editor placeholder="Ingresa la descripcion del paso" [(ngModel)]="paso.descripcion"
+                        name="descripcion-paso"></quill-editor>
+                    <div>
+                        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                            (onFileDropped)="uploadFile(paso, $event.target.files)">
+                            <input hidden type="file" #fileInput (change)="uploadFile(paso, $event.target.files)">
+                        </div>
+                        <div class="files-list" *ngFor="let file of obtenerArchivosEnPaso(key, paso);let i= index">
+                            <p> {{ file.nombre }} </p>
+
+                            <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachment(paso, i)"
+                                aria-label="Example delete icon">
+                                delete</mat-icon>
+
+                        </div>
+                    </div>
+                </div>
+            </mat-expansion-panel>
+        </mat-accordion>
+
+        <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
+    </form>
+
+    <app-speed-dial-floating-button [fabButtons]="buttonOptions" (actionBtn)="doAction($event, guia)">
+    </app-speed-dial-floating-button>
+</div>

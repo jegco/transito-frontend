@@ -1,0 +1,101 @@
+<div class="container-fluid preferencias-container">
+    <form class="preferencias-form">
+        <mat-card class="card">
+            <mat-card-header>
+                <mat-card-title>Colores del usuario</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="colores-content">
+                <div class="cp-container">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Color primario</mat-label>
+                        <input matInput [(colorPicker)]="colorPrimario" [(cpToggle)]="colorPrimarioToggle"
+                            [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]" [value]="colorPrimario"
+                            name="colorPrimario" />
+                    </mat-form-field>
+                    <button mat-button>
+                        <mat-icon (click)="colorPrimarioToggle=!colorPrimarioToggle" [style.color]="colorPrimario">
+                            palette</mat-icon>
+                    </button>
+                </div>
+                <div class="cp-container">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Color secundario</mat-label>
+                        <input matInput [(colorPicker)]="colorSecundario" [(cpToggle)]="colorSecundarioToggle"
+                            [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]" [value]="colorSecundario"
+                            name="colorSecundario" />
+                    </mat-form-field>
+                    <button mat-button>
+                        <mat-icon (click)="colorSecundarioToggle=!colorSecundarioToggle"
+                            [style.color]="colorSecundario">
+                            palette</mat-icon>
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card class="card">
+            <mat-card-header>
+                <mat-card-title> Animaciones del usuario</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="animacion-content">
+                <mat-form-field>
+                    <mat-label>Animaciones disponibles</mat-label>
+                    <mat-select [(value)]="animation">
+                        <mat-option value="">sin animacion</mat-option>
+                        <mat-option *ngFor="let animacion of animacionesDisponibles" value="{{animacion}}">
+                            {{animacion}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Tiempo de espera para iniciar animación</mat-label>
+                    <input matInput [(ngModel)]="tiempoEspera" type="number" name="tiempoEspera" />
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Tiempo de la animación</mat-label>
+                    <input matInput [(ngModel)]="tiempoAnimacion" type="number" name="tiempoAnimacion" />
+                </mat-form-field>
+                <img src="../../../assets/img/DATT.png" class="animation-example"
+                    [@animacion]="{value: animation, params: {delay: tiempoEspera, time: tiempoAnimacion}}">
+            </mat-card-content>
+        </mat-card>
+        <app-punto-atencion></app-punto-atencion>
+        <mat-card class="card">
+            <mat-card-header>
+                <mat-card-title>Tipos de guias</mat-card-title>
+            </mat-card-header>
+            <mat-card-content class="tipos-content">
+                <img [src]="iconoUrl" alt="" class="animation-example">
+                <div class="tipo-form">
+                    <mat-form-field>
+                        <mat-label> Nombre de la categoria de la guia</mat-label>
+                        <input type="text" [(ngModel)]="nombre" matInput name="nombre">
+                    </mat-form-field>
+                </div>
+                <div class="tipos-list">
+                    <mat-card *ngFor="let tipo of tipos">
+                        <div class="tipo-card">
+                        <mat-card-content class="card-content">
+                            <div>
+                                <img mat-card-avatar [src]="cargarMultimedia(tipo.icono)" [alt]="tipo.nombre"
+                                    class="icono">
+                                <p>
+                                    {{tipo.nombre}}
+                                </p>
+                            </div>
+                            <button mat-button class="submit-tipo">
+                                <mat-icon>close</mat-icon>
+                            </button>
+                        </mat-card-content>
+                    </div>
+                    </mat-card>
+                </div>
+            </mat-card-content>
+            <mat-card-actions class="actions">
+                <button mat-button (click)="guardarTipo()">Guardar</button>
+                <button mat-button (click)="fileInput.click()">Cambiar icono</button>
+                <input hidden type="file" #fileInput (change)="cambiarAvatar($event.target.files)">
+            </mat-card-actions>
+        </mat-card>
+    </form>
+</div>

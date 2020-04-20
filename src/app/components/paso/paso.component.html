@@ -1,0 +1,16 @@
+<mat-card class="guia-pasos-card">
+    <mat-card-header>
+        <div mat-card-avatar class="guia-detalle-header-image">
+            <p>{{index+1}}</p>
+        </div>
+        <mat-card-title>{{paso.titulo}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div [innerHTML]="descripcionComoHTML(paso.descripcion)"></div>
+        <ng-image-slider *ngIf="imagenes && imagenes.length > 0" [images]="imagenes"></ng-image-slider>
+        <ng-image-slider *ngIf="videos && videos.length > 0" [images]="videos"></ng-image-slider>
+    </mat-card-content>
+    <mat-card-actions>
+        <img src="paso" alt="">
+    </mat-card-actions>
+</mat-card>

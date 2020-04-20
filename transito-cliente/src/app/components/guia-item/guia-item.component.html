@@ -1,9 +1,0 @@
-<mat-card (click)="showDetails()">
-    <mat-card-header>
-        <mat-card-title>{{guia.titulo}}</mat-card-title>
-        <mat-card-subtitle class="guia-subtitulo">{{guia.tipo}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-        <div [innerHTML]="descripcionComoHTML(guia.descripcion)"></div>
-    </mat-card-content>
-</mat-card>

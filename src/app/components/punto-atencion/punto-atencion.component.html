@@ -1,0 +1,35 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>Puntos de atencion</mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="puntos-content">
+        <div class="container">
+            <div #map class="mapa-container"></div>
+            <div class="punto-container">
+                <mat-form-field class="punto-nombre">
+                    <mat-label>Nombre del punto de atencion</mat-label>
+                    <input matInput type="text" [(ngModel)]="nombre">
+                </mat-form-field>
+                <div class="puntos-list">
+                    <mat-card class="punto-card" *ngFor="let puntoDeAtencion of puntosDeAtencion">
+                        <mat-card-header class="punto-atencion-card-header">
+                            <mat-label>{{puntoDeAtencion.punto.nombre}}</mat-label>
+                            <button mat-button (click)="eliminarMarcador(puntoDeAtencion)">
+                                <mat-icon>
+                                    close
+                                </mat-icon>
+                            </button>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <p>longitud: {{puntoDeAtencion.punto.longitud}}</p>
+                            <p>latitud: {{puntoDeAtencion.punto.latitud}}</p>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions class="actions">
+        <button mat-button (click)="guardarPuntos()">Guardar</button>
+    </mat-card-actions>
+</mat-card>

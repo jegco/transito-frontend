@@ -1,0 +1,83 @@
+.cp-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.card {
+    margin: 1%;
+}
+
+.animation-example {
+    width: 10%;
+    height: 10%;
+}
+
+.actions {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+}
+
+.actions button {
+    width: 30%;
+}
+
+.tipo-card {
+    max-width: 100%;
+  }
+  
+  .tipo-card .card-content {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    justify-content: flex-start;
+  }
+  
+  .tipo-card .card-content div {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .icono {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+    margin-right: 5%;
+    width: 15%;
+  }
+  
+  .submit-tipo {
+    justify-self: flex-end;
+  }
+
+  .tipos-list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin: 2%;
+  }
+
+@media only screen and (min-width: 600px) {
+    .colores-content, .animacion-content, .tipos-content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .animacion-content {
+        justify-content: space-between;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .colores-content, .animacion-content, .tipos-content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .animacion-content {
+        justify-content: space-between;
+        align-items: center;
+    }
+}

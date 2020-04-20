@@ -1,0 +1,17 @@
+<div class="container" *ngIf="guias$ | async as guias; else loading">
+    <div class="guias-container">
+        <app-guia-card class="guia-card" *ngFor="let guia of guias, let i = index"
+        [guia]="guia"
+        (eliminaGuia)="eliminarGuia($event, i)"
+        (actualizaGuia)="actualizarGuia($event)"
+        (click)="mostrarGuia(guia)"></app-guia-card>
+    </div>
+    <mat-card *ngIf="guias.length === 0">No se encontraron guias guardadas hasta el momento</mat-card>
+</div>
+
+<a mat-fab href="javascript:void(0)" (click)="crearGuia()" class="floating-button-guias">
+    <mat-icon>add</mat-icon>
+</a>
+<ng-template #loading>
+    <mat-spinner class="spinner"></mat-spinner>
+</ng-template>
