@@ -92,7 +92,7 @@
                             (onFileDropped)="uploadFile(paso, $event.target.files)">
                             <input hidden type="file" #fileInput (change)="uploadFile(paso, $event.target.files)">
                         </div>
-                        <div class="files-list" *ngFor="let file of obtenerArchivosEnPaso(key, paso);let i= index">
+                        <div class="files-list" *ngFor="let file of obtenerArchivosEnPaso(paso);let i= index">
                             <p> {{ file.nombre }} </p>
 
                             <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachment(paso, i)"

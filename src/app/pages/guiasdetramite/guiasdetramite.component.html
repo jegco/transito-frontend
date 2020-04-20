@@ -2,7 +2,7 @@
     <div class="guias-container">
         <app-guia-card class="guia-card" *ngFor="let guia of guias, let i = index"
         [guia]="guia"
-        (eliminaGuia)="eliminarGuia($event, i)"
+        (eliminaGuia)="eliminarGuia($event)"
         (actualizaGuia)="actualizarGuia($event)"
         (click)="mostrarGuia(guia)"></app-guia-card>
     </div>
