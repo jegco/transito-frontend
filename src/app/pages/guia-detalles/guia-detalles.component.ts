@@ -60,22 +60,22 @@ export class GuiaDetallesComponent extends BaseComponent implements OnInit, Afte
   }
 
   ngAfterViewInit() {
-      const defaultLayers = this.platform.createDefaultLayers();
-      this.map = new H.Map(
-        this.mapElement.nativeElement,
-        defaultLayers.vector.normal.map,
-        {
-          zoom: 14,
-          center: { lat: 10.406887, lng: -75.516103 }
-        }
-      );
-      const mapEvents = new H.mapevents.MapEvents(this.map);
-      this.map.getViewPort().resize();
-  
-      // Instantiate the default behavior, providing the mapEvents object:
-      const behavior = new H.mapevents.Behavior(mapEvents);
-  
-      const ui = H.ui.UI.createDefault(this.map, defaultLayers);
+    const defaultLayers = this.platform.createDefaultLayers();
+    this.map = new H.Map(
+      this.mapElement.nativeElement,
+      defaultLayers.vector.normal.map,
+      {
+        zoom: 14,
+        center: { lat: 10.406887, lng: -75.516103 }
+      }
+    );
+    const mapEvents = new H.mapevents.MapEvents(this.map);
+    this.map.getViewPort().resize();
+
+    // Instantiate the default behavior, providing the mapEvents object:
+    const behavior = new H.mapevents.Behavior(mapEvents);
+
+    const ui = H.ui.UI.createDefault(this.map, defaultLayers);
   }
 
   descripcionComoHTML = (guia: GuiaDeTramite) => {
@@ -84,6 +84,7 @@ export class GuiaDetallesComponent extends BaseComponent implements OnInit, Afte
   }
 
   añadirMarcador = (puntos: PuntoAtencion[]): void => {
+    debugger;
     puntos.forEach(punto => {
       this.map.addObject(new H.map.Marker({
         lat: punto.latitud,
@@ -95,18 +96,21 @@ export class GuiaDetallesComponent extends BaseComponent implements OnInit, Afte
   }
 
   obtenerMultimedia = (documentos: Documento[]) => {
-    this.imagenes = this.obtenerImagenes(documentos);
-    this.videos = this.obtenerVideos(documentos);
-    this.archivos = this.obtenerArchivos(documentos);
+    if (documentos.length !== 0) {
+      this.imagenes = this.obtenerImagenes(documentos);
+      this.videos = this.obtenerVideos(documentos);
+      this.archivos = this.obtenerArchivos(documentos);
+    }
   }
 
   obtenerImagenes = (documentos: Documento[]): Array<any> => {
+    debugger;
     return documentos
-      .filter(documento => documento.extension === 'jpg ' || documento.extension === 'png ')
+      .filter(documento => documento.extension === 'jpg' || documento.extension === 'png')
       .map(documento => {
         return {
-          image: `http://${documento.rutaDeDescarga}`,
-          thumbImage: `http://${documento.rutaDeDescarga}`,
+          image: documento.rutaDeDescarga,
+          thumbImage: documento.rutaDeDescarga,
           alt: documento.nombre,
           title: documento.nombre
         }
@@ -115,11 +119,12 @@ export class GuiaDetallesComponent extends BaseComponent implements OnInit, Afte
 
   obtenerVideos = (documentos: Documento[]): Array<any> => {
     return documentos
-      .filter(documento => documento.extension === 'mp4 ')
+      .filter(documento => documento.extension === 'mp4')
       .map(documento => {
         return {
-          image: `http://${documento.rutaDeDescarga}`,
-          thumbImage: `http://${documento.rutaDeDescarga}`,
+          image: documento.rutaDeDescarga,
+          thumbImage: documento.rutaDeDescarga
+          ,
           alt: documento.nombre,
           title: documento.nombre
         }
@@ -127,7 +132,7 @@ export class GuiaDetallesComponent extends BaseComponent implements OnInit, Afte
   }
 
   obtenerArchivos = (documentos: Documento[]): Array<any> => {
-    return this.archivos = documentos.filter(documento => documento.extension === 'pdf ');
+    return this.archivos = documentos.filter(documento => documento.extension === 'pdf');
   }
 
   descargarArchivo = (documento: Documento): void => {
@@ -141,8 +146,8 @@ export class GuiaDetallesComponent extends BaseComponent implements OnInit, Afte
         link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
 
         setTimeout(function () {
-            window.open(url);
-            link.remove();
+          window.open(url);
+          link.remove();
         }, 100);
       }, error => this.handleException(error));
   }

@@ -57,6 +57,7 @@ export class TableComponent implements OnInit, OnChanges {
   }
 
   deleteElement(row) {
+    debugger;
     this.delete.emit(row);
   }
 

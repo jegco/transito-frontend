@@ -3,7 +3,7 @@ import { HttpService } from '../base/http.service';
 import { environment as ENV } from '../../../environments/environment';
 import { Observable } from 'rxjs';
 import { PuntoAtencion } from 'src/app/models/PuntoAtencion';
-import { concatAll, map } from 'rxjs/operators';
+import { concatAll } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'

@@ -42,11 +42,12 @@ export class DocumentosComponent extends BaseComponent implements OnInit {
     });
   }
 
-  actualizarDocumento(): void {
+  actualizarDocumento(index: number): void {
 
   }
 
   eliminarDocumento(index: number): void {
+    debugger;
     this.documentos$.pipe(
       filter((documento, i) => i === index),
       switchMap(documento => this.documentosService.eliminarDocumento(documento))

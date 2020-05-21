@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Paso } from 'src/app/models/Paso';
 import { DocumentosService } from 'src/app/providers/documentos/documentos.service';
-import { map, switchMap, catchError } from 'rxjs/operators';
+import { map, switchMap, catchError, defaultIfEmpty } from 'rxjs/operators';
 import { GuiasService } from 'src/app/providers/guiasdetramites/guias.service';
 import { GuiaDeTramite } from 'src/app/models/GuiaDeTramite';
 import { BaseComponent } from 'src/app/pages/base/base.component';
@@ -119,6 +119,7 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
   guardarGuia(guia: GuiaDeTramite): void {
     this.showSpinner = true;
+    debugger;
     this.puntosDeAtencion.forEach(puntoDeAtencion => {
       if(guia.puntosDeAtencion) [...guia.puntosDeAtencion, puntoDeAtencion.punto]
       else guia.puntosDeAtencion = guia.puntosDeAtencion = [puntoDeAtencion.punto] 
@@ -157,7 +158,7 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
   }
 
   cargarMultimedia(documento: Documento): string {
-    return `http://${documento.rutaDeDescarga}`;
+    return documento.rutaDeDescarga;
   }
 
 }

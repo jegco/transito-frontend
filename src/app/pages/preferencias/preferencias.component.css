@@ -9,6 +9,26 @@
     margin: 1%;
 }
 
+.tipos-form-container{
+    width: 35%;
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.tipo-form {
+    margin-top: 4%;
+}
+
+.tipo-form * {
+    width: inherit;
+}
+
+.tipos-icono {
+    height: 60%;
+}
+
 .animation-example {
     width: 10%;
     height: 10%;

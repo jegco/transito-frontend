@@ -17,7 +17,11 @@ export class TiposService {
     return this.http.get<Tipo[]>(this.url);
   }
 
-  guardarTipo = (tipo): Observable<Tipo> => {
+  guardarTipo = (tipo: Tipo): Observable<Tipo> => {
     return this.http.post<Tipo, Tipo>(this.url, tipo);
+  }
+
+  eliminarTipo = (tipo: Tipo): Observable<boolean> => {
+    return this.http.delete<Tipo, boolean>(this.url, tipo);
   }
 }

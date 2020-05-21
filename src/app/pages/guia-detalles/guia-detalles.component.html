@@ -3,9 +3,9 @@
         <h3>{{guia.titulo}}</h3>
         <mat-card-content>
             <div class="descripcion-guia" [innerHTML]="descripcionComoHTML(guia)"></div>
-            <ng-image-slider id="multimedia-guia" *ngIf="imagenes" [images]="imagenes"></ng-image-slider>
-            <ng-image-slider id="multimedia-guia" *ngIf="videos" [images]="videos"></ng-image-slider>
-            <div *ngIf="archivos">
+            <ng-image-slider id="multimedia-guia" *ngIf="imagenes.length > 0" [images]="imagenes"></ng-image-slider>
+            <ng-image-slider id="multimedia-guia" *ngIf="videos.length > 0" [images]="videos"></ng-image-slider>
+            <div *ngIf="archivos.length > 0">
                 <mat-card class="pdf-card" *ngFor="let archivo of archivos" (click)="descargarArchivo(archivo)">
                     <mat-card-content class="pdf-container">
                         <img class="pdf-icon"

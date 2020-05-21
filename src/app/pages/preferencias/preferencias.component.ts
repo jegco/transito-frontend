@@ -8,8 +8,12 @@ import { ToastrService } from 'ngx-toastr';
 import { Tipo } from 'src/app/models/Tipo';
 import { TiposService } from 'src/app/providers/tipos/tipos.service';
 import { DocumentosService } from 'src/app/providers/documentos/documentos.service';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, defaultIfEmpty, catchError, map } from 'rxjs/operators';
 import { Documento } from 'src/app/models/Documento';
+import { Observable, of } from 'rxjs';
+import { PreferenciasDeUsuario } from 'src/app/models/PreferenciasDeUsuario';
+import { PreferenciasService } from 'src/app/providers/preferencias/preferencias.service';
+import { Animacion } from 'src/app/models/Animacion';
 
 @Component({
   selector: 'app-preferencias',
@@ -26,15 +30,11 @@ import { Documento } from 'src/app/models/Documento';
 })
 export class PreferenciasComponent extends BaseComponent implements OnInit {
 
-  colorPrimario = 'azul';
+  preferencias$: Observable<PreferenciasDeUsuario>;
   colorPrimarioToggle = false;
-  colorSecundario = 'verde';
   colorSecundarioToggle = false;
-  animation: String = '';
-  tiempoAnimacion = 1000;
   iconoUrl = '../../../assets/img/DATT.png';
   icono: Blob;
-  tiempoEspera = 0;
   animacionesDisponibles = Object.keys(kf);
   tipos: Tipo[];
   nombre = '';
@@ -43,7 +43,8 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
     , public readonly errorService: ErrorService
     , public readonly toast: ToastrService
     , private readonly tiposService: TiposService
-    , private readonly documentosService: DocumentosService) {
+    , private readonly documentosService: DocumentosService
+    , private readonly preferenciasService: PreferenciasService) {
     super(router, errorService, toast);
   }
 
@@ -51,6 +52,18 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
     this.tiposService.buscarTipos().subscribe(tipos => {
       this.tipos = tipos;
     }, error => this.handleException(error));
+
+    this.preferencias$ = this.preferenciasService.buscarPreferencias()
+    .pipe(
+      map(preferencia => {
+        if (!preferencia) return new PreferenciasDeUsuario('', '', '', new Animacion('', '', 0, 1000))
+        return  preferencia;
+      }),
+      catchError(error => {
+        this.handleException(error);
+        return of(new PreferenciasDeUsuario('', '', '', new Animacion('', '', 0, 1000)));
+      })
+    );
   }
 
   cambiarAvatar = (file: any): void => {
@@ -82,6 +95,21 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
 
   cargarMultimedia = (documento: Documento): string => {
     return documento.rutaDeDescarga;
+  }
+
+  eliminarTipo = (index: number): void => {
+    this.tiposService.eliminarTipo(this.tipos[index])
+    .subscribe(() => {
+      this.tipos.splice(index, 1);
+      this.toast.success('categoria eliminada exitosamente')
+    },
+    error => this.handleException(error));
+  }
+
+  guardarPreferencias = (preferencia: PreferenciasDeUsuario) => {
+    this.preferenciasService.guardarPreferencias(preferencia)
+    .subscribe(() => this.toast.success('Preferencias de usuario guardadas exitosamente'), 
+    error => this.handleException(error));
   }
 
 }

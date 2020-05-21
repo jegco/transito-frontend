@@ -59,6 +59,12 @@
     color: red
 }
 
+.spinner {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+
 mat-card, mat-card-header, mat-card-header .mat-card-header-text, mat-card-content:not([name = mat-form-field])
  {
      padding: 2%;
