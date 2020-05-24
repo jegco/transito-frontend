@@ -31,32 +31,31 @@ export class GuiaDetallesComponent extends BaseComponent implements OnInit, Afte
   @ViewChild('nav', { static: true }) slider: NgImageSliderComponent;
   map: any;
 
-  @ViewChild("map", { static: false })
+  @ViewChild('map', { static: false })
   mapElement: ElementRef;
 
   constructor(public readonly router: Router
-    , public readonly errorService: ErrorService
-    , public readonly toast: ToastrService
-    , private readonly guiasService: GuiasService
-    , private readonly documentosService: DocumentosService
-    , private readonly activatedRoute: ActivatedRoute
-    , private readonly sanitizer: DomSanitizer) {
+    ,         public readonly errorService: ErrorService
+    ,         public readonly toast: ToastrService
+    ,         private readonly guiasService: GuiasService
+    ,         private readonly documentosService: DocumentosService
+    ,         private readonly activatedRoute: ActivatedRoute
+    ,         private readonly sanitizer: DomSanitizer) {
     super(router, errorService, toast);
     this.platform = new H.service.Platform({
-      "apikey": "BNBi1cMp5htkcfPgw6a6HBPF06ymGygntZdlmEdPTZw"
+      apikey: 'BNBi1cMp5htkcfPgw6a6HBPF06ymGygntZdlmEdPTZw'
     });
   }
 
   ngOnInit() {
     this.guia$ = this.activatedRoute.params
       .pipe(
-        map(params => params['nombreGuia']),
+        map(params => params.nombreGuia),
         switchMap(nombre => this.guiasService.buscarGuiaPorTitulo(nombre)),
-        tap(guia => this.obtenerMultimedia(guia.formularios)),
         catchError(error => {
           this.handleException(error);
           return of<GuiaDeTramite>();
-        }))
+        }));
   }
 
   ngAfterViewInit() {
@@ -84,68 +83,27 @@ export class GuiaDetallesComponent extends BaseComponent implements OnInit, Afte
   }
 
   añadirMarcador = (puntos: PuntoAtencion[]): void => {
-    debugger;
     puntos.forEach(punto => {
       this.map.addObject(new H.map.Marker({
         lat: punto.latitud,
         lng: punto.longitud
       }));
-    })
+    });
     // const informacion = this.construirformacionDelMarcador(latitud, longitud);
     // ui.addBubble(informacion);
-  }
-
-  obtenerMultimedia = (documentos: Documento[]) => {
-    if (documentos.length !== 0) {
-      this.imagenes = this.obtenerImagenes(documentos);
-      this.videos = this.obtenerVideos(documentos);
-      this.archivos = this.obtenerArchivos(documentos);
-    }
-  }
-
-  obtenerImagenes = (documentos: Documento[]): Array<any> => {
-    debugger;
-    return documentos
-      .filter(documento => documento.extension === 'jpg' || documento.extension === 'png')
-      .map(documento => {
-        return {
-          image: documento.rutaDeDescarga,
-          thumbImage: documento.rutaDeDescarga,
-          alt: documento.nombre,
-          title: documento.nombre
-        }
-      })
-  }
-
-  obtenerVideos = (documentos: Documento[]): Array<any> => {
-    return documentos
-      .filter(documento => documento.extension === 'mp4')
-      .map(documento => {
-        return {
-          image: documento.rutaDeDescarga,
-          thumbImage: documento.rutaDeDescarga
-          ,
-          alt: documento.nombre,
-          title: documento.nombre
-        }
-      });
-  }
-
-  obtenerArchivos = (documentos: Documento[]): Array<any> => {
-    return this.archivos = documentos.filter(documento => documento.extension === 'pdf');
   }
 
   descargarArchivo = (documento: Documento): void => {
     this.documentosService.descargarDocumento(documento).subscribe(
       data => {
-        const blob = new Blob([data], { type: "application/pdf" })
+        const blob = new Blob([data], { type: 'application/pdf' });
         const url = window.URL.createObjectURL(blob);
         const link = document.createElement('a');
         link.href = url;
         link.download = documento.nombre;
         link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
 
-        setTimeout(function () {
+        setTimeout(() => {
           window.open(url);
           link.remove();
         }, 100);

@@ -1,68 +1,60 @@
 <div class="dashboard-container">
-  <div class="toolbar-container">
-    <mat-toolbar class="toolbar">
-      <mat-toolbar-row>
-        <img src="../../../assets/img/DATT.png" alt="" class="datt-logo">
-        <div class="titulo-container">
-          <span class="titulo">Guias de tramites</span>
-          <span class="subtitulo">Transito de Cartagena</span>
-        </div>
-        <span class="toolbar-spacer"></span>
-        <mat-icon class="profile-icon" aria-hidden="false" aria-label="Perfil" mat-button
-          [matMenuTriggerFor]="menuPeople">
-          person</mat-icon>
-        <mat-menu #menuPeople="matMenu">
-          <mat-card class="example-card">
-            <mat-card-header>
-              <div mat-card-avatar class="avatar">jc</div>
-              <mat-card-title>Jorge Caro</mat-card-title>
-            </mat-card-header>
-          </mat-card>
-          <button mat-button>Perfil</button>
-          <button mat-button (click)="cerrarSesion()">Cerrar sesion</button>
-        </mat-menu>
-      </mat-toolbar-row>
-    </mat-toolbar>
-  </div>
-  <div class="main-container">
-    <nav class="navbar-container">
-      <ul class="navbar-nav">
-        <li class="nav-item">
-          <a href="#" class="nav-link" routerLink="/dashboard/guias">
-            <mat-icon aria-hidden="false" aria-label="Guia" mat-button>
-              chrome_reader_mode</mat-icon>
-            <span class="link-text">Guias</span>
-          </a>
-        </li>
+    <div class="toolbar-container">
+        <mat-toolbar class="toolbar">
+            <mat-toolbar-row>
+                <img src="../../../assets/img/DATT.png" alt="" class="datt-logo">
+                <div class="titulo-container">
+                    <span class="titulo">Guias de tramites</span>
+                    <span class="subtitulo">Transito de Cartagena</span>
+                </div>
+                <span class="toolbar-spacer"></span>
+                <div [matMenuTriggerFor]="menuPeople" id="avatar">JC</div>
+                <mat-menu #menuPeople="matMenu" class="menu-container">
+                    <button mat-menu-item>Perfil</button>
+                    <button mat-menu-item (click)="cerrarSesion()">Cerrar sesion</button>
+                </mat-menu>
+            </mat-toolbar-row>
+        </mat-toolbar>
+    </div>
+    <div class="main-container">
+        <nav class="navbar-container">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" routerLink="/dashboard/guias">
+                        <mat-icon aria-hidden="false" aria-label="Guia" mat-button>
+                            chrome_reader_mode</mat-icon>
+                        <span class="link-text">Guias</span>
+                    </a>
+                </li>
 
-        <li class="nav-item">
-          <a href="#" class="nav-link" routerLink="/dashboard/documentos">
-            <mat-icon class="nav-icon" aria-hidden="false" aria-label="Guia" mat-button>
-              description</mat-icon>
-            <span class="link-text">Documentos</span>
-          </a>
-        </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" routerLink="/dashboard/documentos">
+                        <mat-icon class="nav-icon" aria-hidden="false" aria-label="Guia" mat-button>
+                            description</mat-icon>
+                        <span class="link-text">Documentos</span>
+                    </a>
+                </li>
 
-        <li class="nav-item">
-          <a href="#" class="nav-link" routerLink="/dashboard/preferencias">
-            <mat-icon class="nav-icon" aria-hidden="false" aria-label="Guia" mat-button>
-              settings</mat-icon>
-            <span class="link-text">Preferencias</span>
-          </a>
-        </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" routerLink="/dashboard/preferencias">
+                        <mat-icon class="nav-icon" aria-hidden="false" aria-label="Guia" mat-button>
+                            settings</mat-icon>
+                        <span class="link-text">Preferencias</span>
+                    </a>
+                </li>
 
-        <li class="nav-item" *ngIf="mostrarOpcionesSuperAdmin()">
-          <a href="#" class="nav-link" routerLink="/dashboard/usuarios">
-            <mat-icon class="nav-icon">
-              person</mat-icon>
-            <span class="link-text">Usuarios</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+                <li class="nav-item" *ngIf="mostrarOpcionesSuperAdmin()">
+                    <a href="#" class="nav-link" routerLink="/dashboard/usuarios">
+                        <mat-icon class="nav-icon">
+                            person</mat-icon>
+                        <span class="link-text">Usuarios</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
 
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-  </div>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </div>
 </div>

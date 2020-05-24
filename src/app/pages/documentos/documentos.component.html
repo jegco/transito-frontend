@@ -1,12 +1,26 @@
-<div *ngIf="documentos$ | async as documentos; else loading">
-    <app-table *ngIf="documentos.length > 0"
-    [displayedColumns]="columnas" [dataSource]="obtenerDatosTablaDocumentos(documentos)" [hasActions]=true
-        [showUpdate]=true [showDelete]=true (update)="actualizarDocumento($event)"
-        (delete)="eliminarDocumento($event)"></app-table>
-    <mat-card *ngIf="documentos.length === 0">
-        No se encontraron documentos guardadas hasta el momento
-    </mat-card>
+<div>
+    <div *ngIf="documentos$ | async as documentos; else loading" class="documentos-container">
+        <div class="card-anexos" *ngFor="let anexo of documentos" (click)="seleccionarAnexo(anexo, guia)">
+            <div class="anexos-extension">
+                <p>{{anexo.extension}}</p>
+            </div>
+            <div class="anexos-card-container">
+                <h5 class="anexo-nombre">{{anexo.nombre}}</h5>
+                <span>Fecha de creacion: {{anexo.fechaCreacion}}</span>
+            </div>
+            <div class="menu">
+                <mat-icon [matMenuTriggerFor]="menuDocumento">more_vert</mat-icon>
+            </div>
+            <mat-menu #menuDocumento="matMenu">
+                <button mat-menu-item>Modificar</button>
+                <button mat-menu-item (click)="eliminarDocumento(anexo)">Eliminar</button>
+            </mat-menu>
+        </div>
+        <mat-card *ngIf="documentos.length === 0">
+            No se encontraron documentos guardadas hasta el momento
+        </mat-card>
+    </div>
+    <ng-template #loading>
+        <mat-spinner class="spinner"></mat-spinner>
+    </ng-template>
 </div>
-<ng-template #loading>
-    <mat-spinner class="spinner"></mat-spinner>
-</ng-template>

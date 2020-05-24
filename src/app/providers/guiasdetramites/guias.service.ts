@@ -28,7 +28,7 @@ export class GuiasService {
     return this.http.getResource<GuiaDeTramite[]>(`${this.url}/titulo`, titulo)
     .pipe(
       concatAll(),
-      defaultIfEmpty(new GuiaDeTramite('', '', '', [], [],
+      defaultIfEmpty(new GuiaDeTramite('', '', '', null, [],
       new Tipo('', '', new Documento('', '', '', '', '', '', '')),
       '', []))
     );

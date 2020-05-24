@@ -33,18 +33,19 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
   preferencias$: Observable<PreferenciasDeUsuario>;
   colorPrimarioToggle = false;
   colorSecundarioToggle = false;
-  iconoUrl = '../../../assets/img/DATT.png';
+  iconoUrl = '../../../assets/img/graphic-design.png';
   icono: Blob;
   animacionesDisponibles = Object.keys(kf);
   tipos: Tipo[];
   nombre = '';
 
-  constructor(public readonly router: Router
-    , public readonly errorService: ErrorService
-    , public readonly toast: ToastrService
-    , private readonly tiposService: TiposService
-    , private readonly documentosService: DocumentosService
-    , private readonly preferenciasService: PreferenciasService) {
+  constructor(
+    public readonly router: Router,
+    public readonly errorService: ErrorService,
+    public readonly toast: ToastrService,
+    private readonly tiposService: TiposService,
+    private readonly documentosService: DocumentosService,
+    private readonly preferenciasService: PreferenciasService) {
     super(router, errorService, toast);
   }
 
@@ -56,7 +57,9 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
     this.preferencias$ = this.preferenciasService.buscarPreferencias()
     .pipe(
       map(preferencia => {
-        if (!preferencia) return new PreferenciasDeUsuario('', '', '', new Animacion('', '', 0, 1000))
+        if (!preferencia) {
+          return new PreferenciasDeUsuario('', '', '', new Animacion('', '', 0, 1000));
+        }
         return  preferencia;
       }),
       catchError(error => {
@@ -70,10 +73,8 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = (event: any) => {
       this.iconoUrl = event.target.result;
-    }
-
+    };
     this.icono = file[0];
-
     reader.readAsDataURL(this.icono);
   }
 
@@ -82,7 +83,7 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
       this.documentosService.guardarDocumento(this.icono)
         .pipe(
           switchMap(documento => {
-            return this.tiposService.guardarTipo(new Tipo('', this.nombre, documento))
+            return this.tiposService.guardarTipo(new Tipo('', this.nombre, documento));
           })
         ).subscribe((tipo: Tipo) => {
           this.toast.success('nueva categoria guardada con exito');
@@ -101,14 +102,14 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
     this.tiposService.eliminarTipo(this.tipos[index])
     .subscribe(() => {
       this.tipos.splice(index, 1);
-      this.toast.success('categoria eliminada exitosamente')
+      this.toast.success('categoria eliminada exitosamente');
     },
     error => this.handleException(error));
   }
 
   guardarPreferencias = (preferencia: PreferenciasDeUsuario) => {
     this.preferenciasService.guardarPreferencias(preferencia)
-    .subscribe(() => this.toast.success('Preferencias de usuario guardadas exitosamente'), 
+    .subscribe(() => this.toast.success('Preferencias de usuario guardadas exitosamente'),
     error => this.handleException(error));
   }
 

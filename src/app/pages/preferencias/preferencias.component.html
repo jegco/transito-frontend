@@ -1,29 +1,24 @@
 <div class="container-fluid preferencias-container">
     <form class="preferencias-form" *ngIf="preferencias$ | async as preferencias">
         <mat-card class="card">
-            <mat-card class="card">
-                <mat-card-header>
-                    <mat-card-title>Colores del usuario</mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="colores-content">
+            <mat-card-content class="preferencias-content">
+                <div class="colores-container">
+                    <H4>Colores del usuario</H4>
                     <div class="cp-container">
                         <mat-form-field appearance="outline">
                             <mat-label>Color primario</mat-label>
-                            <input matInput [(colorPicker)]="preferencias.colorPrimario" [(cpToggle)]="colorPrimarioToggle"
-                                [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]" [value]="preferencias.colorPrimario"
-                                name="colorPrimario" />
+                            <input matInput [(colorPicker)]="preferencias.colorPrimario" [(cpToggle)]="colorPrimarioToggle" [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]" [value]="preferencias.colorPrimario" name="colorPrimario" />
                         </mat-form-field>
                         <button mat-button>
-                            <mat-icon (click)="colorPrimarioToggle=!colorPrimarioToggle" [style.color]="preferencias.colorPrimario">
+                            <mat-icon (click)="colorPrimarioToggle=!colorPrimarioToggle"
+                                [style.color]="preferencias.colorPrimario">
                                 palette</mat-icon>
                         </button>
                     </div>
                     <div class="cp-container">
                         <mat-form-field appearance="outline">
                             <mat-label>Color secundario</mat-label>
-                            <input matInput [(colorPicker)]="preferencias.colorSecundario" [(cpToggle)]="colorSecundarioToggle"
-                                [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]" [value]="preferencias.colorSecundario"
-                                name="colorSecundario" />
+                            <input matInput [(colorPicker)]="preferencias.colorSecundario" [(cpToggle)]="colorSecundarioToggle" [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]" [value]="preferencias.colorSecundario" name="colorSecundario" />
                         </mat-form-field>
                         <button mat-button>
                             <mat-icon (click)="colorSecundarioToggle=!colorSecundarioToggle"
@@ -31,47 +26,46 @@
                                 palette</mat-icon>
                         </button>
                     </div>
-                </mat-card-content>
-            </mat-card>
+                </div>
 
-            <mat-card class="card">
-                <mat-card-header>
-                    <mat-card-title> Animaciones del usuario</mat-card-title>
-                </mat-card-header>
-                <mat-card-content class="animacion-content">
-                    <mat-form-field>
-                        <mat-label>Animaciones disponibles</mat-label>
-                        <mat-select [(value)]="preferencias.animacion.nombre">
-                            <mat-option value="">sin animacion</mat-option>
-                            <mat-option *ngFor="let animacion of animacionesDisponibles" value="{{animacion}}">
-                                {{animacion}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Tiempo de espera para iniciar animación</mat-label>
-                        <input matInput [(ngModel)]="preferencias.animacion.tiempoDeEspera" type="number" name="tiempoDeEspera" />
-                    </mat-form-field>
-                    <mat-form-field>
-                        <mat-label>Tiempo de la animación</mat-label>
-                        <input matInput [(ngModel)]="preferencias.animacion.tiempoDeAnimacion" type="number" name="tiempoDeAnimacion" />
-                    </mat-form-field>
-                    <img src="../../../assets/img/DATT.png" class="animation-example"
-                        [@animacion]="{value: preferencias.animacion.nombre, params: {delay: preferencias.animacion.tiempoDeEspera, time: preferencias.animacion.tiempoDeAnimacion}}">
-                </mat-card-content>
-            </mat-card>
+                <div class="animacion-content">
+                    <div class="animacion-inputs">
+                        <h4> Animaciones del usuario</h4>
+                        <mat-form-field>
+                            <mat-label>Animaciones disponibles</mat-label>
+                            <mat-select [(value)]="preferencias.animacion.nombre">
+                                <mat-option value="">sin animacion</mat-option>
+                                <mat-option *ngFor="let animacion of animacionesDisponibles" value="{{animacion}}">
+                                    {{animacion}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Tiempo de espera para iniciar animación</mat-label>
+                            <input matInput [(ngModel)]="preferencias.animacion.tiempoDeEspera" type="number" name="tiempoDeEspera" />
+                        </mat-form-field>
+                        <mat-form-field>
+                            <mat-label>Tiempo de la animación</mat-label>
+                            <input matInput [(ngModel)]="preferencias.animacion.tiempoDeAnimacion" type="number" name="tiempoDeAnimacion" />
+                        </mat-form-field>
+                    </div>
+                    <img src="../../../assets/img/DATT.png" class="animation-example" [@animacion]="{value: preferencias.animacion.nombre, params: {delay: preferencias.animacion.tiempoDeEspera, time: preferencias.animacion.tiempoDeAnimacion}}">
+                </div>
+            </mat-card-content>
             <mat-card-actions class="actions">
                 <button mat-button (click)="guardarPreferencias(preferencias)">Guardar</button>
             </mat-card-actions>
         </mat-card>
         <app-punto-atencion></app-punto-atencion>
+
         <mat-card class="card">
             <mat-card-header>
                 <mat-card-title>Tipos de guias</mat-card-title>
             </mat-card-header>
             <mat-card-content class="tipos-content">
                 <div class="tipos-form-container">
-                    <img [src]="iconoUrl" alt="" class="tipos-icono">
+                    <p>Selecciona una imagen que represente la categoria haciendo click en la imagen</p>
+                    <img [src]="iconoUrl" (click)="fileInput.click()" alt="" class="tipos-icono">
                     <div class="tipo-form">
                         <mat-form-field>
                             <mat-label> Nombre de la categoria de la guia</mat-label>
@@ -80,27 +74,21 @@
                     </div>
                 </div>
                 <div class="tipos-list">
-                    <mat-card *ngFor="let tipo of tipos; let i = index">
-                        <div class="tipo-card">
-                            <mat-card-content class="card-content">
-                                <div>
-                                    <img mat-card-avatar [src]="cargarMultimedia(tipo.icono)" [alt]="tipo.nombre"
-                                        class="icono">
-                                    <p>
-                                        {{tipo.nombre}}
-                                    </p>
-                                </div>
-                                <button mat-button class="submit-tipo" (click)="eliminarTipo(i)">
-                                    <mat-icon>close</mat-icon>
-                                </button>
-                            </mat-card-content>
+                    <div class="tipo-card" *ngFor="let tipo of tipos; let i = index">
+                        <div class="tipo-content">
+                            <img mat-card-avatar [src]="cargarMultimedia(tipo.icono)" [title]="tipo.nombre" class="icono">
+                            <p>{{tipo.nombre}}</p>
                         </div>
-                    </mat-card>
+                        <button mat-button (click)="eliminarTipo(i)" class="close">
+                            <mat-icon>
+                                close
+                            </mat-icon>
+                        </button>
+                    </div>
                 </div>
             </mat-card-content>
             <mat-card-actions class="actions">
                 <button mat-button (click)="guardarTipo()">Guardar</button>
-                <button mat-button (click)="fileInput.click()">Cambiar icono</button>
                 <input hidden type="file" #fileInput (change)="cambiarAvatar($event.target.files)">
             </mat-card-actions>
         </mat-card>

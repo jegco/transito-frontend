@@ -24,8 +24,8 @@ export class DocumentosService {
     return this.http.postMultipart<any, Documento>(this.url, documentos);
   }
 
-  buscarDocumentos = (): Observable<Documento> => {
-    return this.http.get<Documento>(this.url);
+  buscarDocumentos = (): Observable<Documento[]> => {
+    return this.http.get<Documento[]>(this.url);
   }
 
   buscarDocumentoPorNombre = (nombre: string): Observable<Documento> => {

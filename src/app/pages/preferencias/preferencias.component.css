@@ -9,7 +9,20 @@
     margin: 1%;
 }
 
-.tipos-form-container{
+.preferencias-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.colores-container .animacion-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.tipos-form-container {
     width: 35%;
     height: inherit;
     display: flex;
@@ -26,12 +39,27 @@
 }
 
 .tipos-icono {
-    height: 60%;
+    height: 200px;
+    width: 180px;
 }
 
 .animation-example {
-    width: 10%;
-    height: 10%;
+    width: 200px;
+    height: 180px;
+}
+
+.animacion-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 40%;
+    justify-content: space-around;
+}
+
+.animacion-inputs {
+    display: flex;
+    flex-direction: column;
 }
 
 .actions {
@@ -44,60 +72,84 @@
     width: 30%;
 }
 
+.tipo-card-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
 .tipo-card {
-    max-width: 100%;
-  }
-  
-  .tipo-card .card-content {
+    width: 250px;
+    height: 100px;
+    display: flex;
+    flex-direction: row;
+    box-shadow: 0 4px 8px 0 rgba(87, 83, 83, 0.171);
+    transition: 0.3s;
+}
+
+.close {
+    margin-left: auto;
+    position: relative;
+    top: 0;
+    right: 0;
+    height: 30%;
+}
+
+.tipo-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 5%;
+}
+
+.tipo-card-content {
+    display: flex;
+    flex-direction: row;
+}
+
+.card-content {
     display: flex;
     width: 100%;
     height: 100%;
     flex-direction: row;
     justify-content: flex-start;
-  }
-  
-  .tipo-card .card-content div {
+}
+
+.card-content div {
     display: flex;
     flex-direction: row;
-  }
-  
-  .icono {
+}
+
+.icono {
     background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
     background-size: cover;
     margin-right: 5%;
-    width: 15%;
-  }
-  
-  .submit-tipo {
-    justify-self: flex-end;
-  }
+    width: 35%;
+}
 
-  .tipos-list {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      margin: 2%;
-  }
+.submit-tipo {
+    justify-self: flex-end;
+}
+
+.tipos-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 2%;
+}
 
 @media only screen and (min-width: 600px) {
-    .colores-content, .animacion-content, .tipos-content {
+    .colores-content,
+    .tipos-content {
         display: flex;
         flex-direction: row;
-    }
-
-    .animacion-content {
-        justify-content: space-between;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .colores-content, .animacion-content, .tipos-content {
+    .colores-content,
+    .tipos-content {
         display: flex;
         flex-direction: column;
-    }
-
-    .animacion-content {
-        justify-content: space-between;
-        align-items: center;
     }
 }

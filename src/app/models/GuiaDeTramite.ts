@@ -8,7 +8,7 @@ export class GuiaDeTramite {
         public id: string,
         public titulo: string,
         public descripcion: string,
-        public formularios: Documento[],
+        public anexo: Documento,
         public pasos: Paso[],
         public tipo: Tipo,
         public soporteLegal: string,

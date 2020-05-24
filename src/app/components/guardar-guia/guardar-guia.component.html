@@ -11,57 +11,55 @@
                 </mat-form-field>
 
                 <div class="container">
+                    <h3>Seleccione una categoria para la guia</h3>
                     <mat-radio-group *ngIf="tipos$ | async as tipos" [(ngModel)]="categoria" name="categoria">
-                        <mat-radio-button *ngFor="let tipo of tipos" class="example-margin" labelPosition="before"
-                            [value]="tipo">
+                        <mat-radio-button *ngFor="let tipo of tipos" class="example-margin" labelPosition="before" [value]="tipo">
                             <div style="display: flex; justify-content: center">
-                                <img mat-card-avatar [src]="cargarMultimedia(tipo.icono)"
-                                    style="width: 45px; margin: 4%">
+                                <img mat-card-avatar [src]="cargarMultimedia(tipo.icono)" style="width: 45px; margin: 4%">
                                 <p>{{tipo.nombre}}</p>
                             </div>
                         </mat-radio-button>
                     </mat-radio-group>
                 </div>
                 <div class="container">
-                    <mat-checkbox *ngFor="let puntoDeAtencion of puntosDeAtencion" class="example-margin"
-                    [(ngModel)]="puntoDeAtencion.checked" labelPosition="before" name="puntoDeAtencion">
+                    <h3>Seleccione los puntos de atencion en que se puede realizar este tramite</h3>
+                    <mat-checkbox *ngFor="let puntoDeAtencion of puntosDeAtencion" class="example-margin" [(ngModel)]="puntoDeAtencion.checked" labelPosition="before" name="puntoDeAtencion">
                         <div style="display: flex; justify-content: center">
                             <p>{{puntoDeAtencion.punto.nombre}}</p>
                         </div>
                     </mat-checkbox>
                 </div>
+                <div class="descripcion-container">
+                    <h3>Descripcion</h3>
 
-                <!-- <mat-form-field>
-                    <mat-label>Puntos de atencion</mat-label>
-                    <mat-select *ngIf="puntos$ | async as puntos" [(value)]="guia.punto">
-                        <mat-option *ngFor="let punto of puntos" [value]="tipo">
-                            {{punto.nombre}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field> -->
-                <br />
-                <mat-label>Descripcion</mat-label>
-
-                <quill-editor placeholder="Escriba la descripcion de la guia" [(ngModel)]="guia.descripcion"
-                    name="descripcion-guia">
+                    <quill-editor placeholder="Escriba la descripcion de la guia" class="textarea" [(ngModel)]="guia.descripcion" name="descripcion-guia">
+                    </quill-editor>
+                </div>
+                <h3>Soporte legal</h3>
+                <quill-editor placeholder="Escriba el soporte legal de la guia" [(ngModel)]="guia.soporteLegal" name="soporte-legal-guia">
                 </quill-editor>
-
-                <mat-label>Soporte legal</mat-label>
-                <quill-editor placeholder="Escriba el soporte legal de la guia" [(ngModel)]="guia.soporteLegal"
-                    name="soporte-legal-guia">
-                </quill-editor>
-
-                <div>
-                    <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
-                        (onFileDropped)="uploadFileGuia($event, guia)">
-                        <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files, guia)">
+                <h4>Selecciona un anexo existente de la lista o añade uno nuevo arrastrando o dando click</h4>
+                <div class="anexos-container">
+                    <div class="anexos-list" *ngIf="anexos$ | async as anexos">
+                        <div class="card-anexos" *ngFor="let anexo of anexos" (click)="seleccionarAnexo(anexo, guia)">
+                            <div class="anexos-extension">
+                                <p>{{anexo.extension}}</p>
+                            </div>
+                            <div class="anexos-card-container">
+                                <h5>{{anexo.nombre}}</h5>
+                                <p>{{anexo.fechaCreacion}}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="files-list" *ngFor="let file of obtenerArchivosEnGuia(guia) ;let i= index">
-                        <p> {{ file.nombre }} </p>
-
-                        <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachmentGuia(i, guia)"
-                            aria-label="Example delete icon">
-                            delete</mat-icon>
+                    <div class="anexos-content">
+                        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFileGuia($event, guia)">
+                            <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files, guia)">
+                        </div>
+                        <div class="files-list" *ngIf="guia.anexo != null">
+                            <p> {{ guia.anexo.nombre }} </p>
+                            <mat-icon aria-hidden="false" class="delete-file" (click)="borrarAnexoEnGuia(guia)" aria-label="Example delete icon">
+                                delete</mat-icon>
+                        </div>
                     </div>
                 </div>
 
@@ -82,25 +80,36 @@
 
                 <div class="paso-container">
                     <mat-form-field class="guia-full-width">
-                        <input matInput placeholder="titulo" name="titulo-paso" [value]="paso.titulo">
+                        <input matInput placeholder="titulo" name="titulo-paso" [(ngModel)]="paso.titulo">
                     </mat-form-field>
                     <mat-label>Descripcion</mat-label>
-                    <quill-editor placeholder="Ingresa la descripcion del paso" [(ngModel)]="paso.descripcion"
-                        name="descripcion-paso"></quill-editor>
-                    <div>
-                        <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
-                            (onFileDropped)="uploadFile(paso, $event.target.files)">
-                            <input hidden type="file" #fileInput (change)="uploadFile(paso, $event.target.files)">
+                    <quill-editor placeholder="Ingresa la descripcion del paso" [(ngModel)]="paso.descripcion" name="descripcion-paso"></quill-editor>
+
+                    <h4>Selecciona un anexo existente de la lista o añade uno nuevo arrastrando o dando click</h4>
+                    <div class="anexos-container">
+                        <div class="anexos-list" *ngIf="anexos$ | async as anexos">
+                            <div class="card-anexos" *ngFor="let anexo of anexos" (click)="seleccionarAnexoEnPaso(anexo, paso)">
+                                <div class="anexos-extension">
+                                    <p>{{anexo.extension}}</p>
+                                </div>
+                                <div class="anexos-card-container">
+                                    <h5>{{anexo.nombre}}</h5>
+                                    <p>{{anexo.fechaCreacion}}</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="files-list" *ngFor="let file of obtenerArchivosEnPaso(paso);let i= index">
-                            <p> {{ file.nombre }} </p>
-
-                            <mat-icon aria-hidden="false" class="delete-file" (click)="deleteAttachment(paso, i)"
-                                aria-label="Example delete icon">
-                                delete</mat-icon>
-
+                        <div class="anexos-content">
+                            <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop (onFileDropped)="uploadFile(paso, $event.target.files)">
+                                <input hidden type="file" #fileInput (change)="uploadFile(paso, $event.target.files)">
+                            </div>
+                            <div class="files-list" *ngIf="paso.anexo != null">
+                                <p> {{ paso.anexo.nombre }} </p>
+                                <mat-icon aria-hidden="false" class="delete-file" (click)="borrarAnexoEnPaso(paso)" aria-label="Example delete icon">
+                                    delete</mat-icon>
+                            </div>
                         </div>
                     </div>
+
                 </div>
             </mat-expansion-panel>
         </mat-accordion>

@@ -15,10 +15,11 @@ import { filter, switchMap, catchError } from 'rxjs/operators';
 })
 export class DocumentosComponent extends BaseComponent implements OnInit {
 
-  documentos$: Observable<Documento>;
+  documentos$: Observable<Documento | Documento[]>;
   columnas = ['nombre', 'fecha de creacion', 'fecha de actualizacion'];
 
-  constructor(public readonly router: Router,
+  constructor(
+    public readonly router: Router,
     public readonly errorService: ErrorService,
     public readonly toast: ToastrService,
     private readonly documentosService: DocumentosService) {
@@ -46,13 +47,10 @@ export class DocumentosComponent extends BaseComponent implements OnInit {
 
   }
 
-  eliminarDocumento(index: number): void {
-    debugger;
-    this.documentos$.pipe(
-      filter((documento, i) => i === index),
-      switchMap(documento => this.documentosService.eliminarDocumento(documento))
-    ).subscribe(() => this.toast.success('Documento eliminado satisfactoriamente'),
-      error => this.handleException(error));
+  eliminarDocumento = (documento: Documento): void => {
+    this.documentosService.eliminarDocumento(documento)
+      .subscribe(() => this.toast.success('Documento eliminado satisfactoriamente'),
+        error => this.handleException(error));
   }
 
 }

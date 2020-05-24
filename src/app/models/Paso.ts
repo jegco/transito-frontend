@@ -4,7 +4,6 @@ export class Paso {
     constructor(
         public titulo: string,
         public descripcion: string,
-        public anexos: Documento[]
+        public anexo: Documento
     ) { }
-
 }

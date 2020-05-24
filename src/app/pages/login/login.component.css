@@ -1,81 +1,70 @@
 .main-container {
-    background-color: white;
-    display: flex;
-    flex-direction: row;
     width: 100%;
-    justify-content: center;
     height: 100%;
+    background-color: #E7E7E7;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
 }
 
 .login-container {
-    width: 30%;
+    width: 25%;
+    height: 60%;
+}
+
+.login-form,
+.login-card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .logo {
-    width: 30%;
-    height: 25%;
-    margin: 5% 5% 0 5%;
+    width: 20%;
+    height: 16%;
+    padding: 8%;
 }
 
+.login-input {
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 20%;
+}
 
-.btn-login {
-    background: -webkit-linear-gradient(top, #106B0A 0, #189F0F 100%) no-repeat;
-    color: white
+.input {
+    background-color: #DDDDDD;
+    width: 100%;
+    height: 50%;
+    border: none;
+    font-size: 20px;
+}
+
+.login-actions {
+    margin-top: auto;
+    margin-bottom: 5%;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between
 }
 
 .btn-registrarse {
     color: green;
 }
 
-.login-form {
+.btn-login {
+    background-color: #10700B;
     color: white;
-    width: 1;
-}
-
-@media screen and (min-width:1024px) {
-    .login-form {
-        color: white;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-  }
-
-.login-card {
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-}
-
-::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
-    color: grey;
-    opacity: 1;
-    /* Firefox */
-}
-.error{
-    color: red
+    width: 40%;
 }
 
 .spinner {
     position: fixed;
     bottom: 0;
     right: 0;
-}
-
-mat-card, mat-card-header, mat-card-header .mat-card-header-text, mat-card-content:not([name = mat-form-field])
- {
-     padding: 2%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-mat-card-actions {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
 }
