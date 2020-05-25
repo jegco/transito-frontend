@@ -12,7 +12,7 @@
                 <mat-icon [matMenuTriggerFor]="menuDocumento">more_vert</mat-icon>
             </div>
             <mat-menu #menuDocumento="matMenu">
-                <button mat-menu-item>Modificar</button>
+                <button mat-menu-item (click)="actualizarDocumento(anexo)">Modificar</button>
                 <button mat-menu-item (click)="eliminarDocumento(anexo)">Eliminar</button>
             </mat-menu>
         </div>
@@ -24,3 +24,4 @@
         <mat-spinner class="spinner"></mat-spinner>
     </ng-template>
 </div>
+<input hidden type="file" #fileInput (change)="updateDocumento($event.target.files, documento)">

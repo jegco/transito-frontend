@@ -5,31 +5,46 @@
     <mat-card-content class="puntos-content">
         <div class="container">
             <div #map class="mapa-container"></div>
+            <div class="puntos-list">
+                <mat-card class="punto-card" *ngFor="let puntoDeAtencion of puntosDeAtencion">
+                    <mat-card-header class="punto-atencion-card-header">
+                        <mat-label>{{puntoDeAtencion.punto.nombre}}</mat-label>
+                        <button mat-button (click)="eliminarMarcador(puntoDeAtencion)">
+                            <mat-icon>
+                                close
+                            </mat-icon>
+                        </button>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>longitud: {{puntoDeAtencion.punto.longitud}}</p>
+                        <p>latitud: {{puntoDeAtencion.punto.latitud}}</p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
             <div class="punto-container">
+                <h5>Ingrese los datos del puntos de atencion, en caso tal de no saber la longitud y latitud exacta por favor presione el punto que desea añadir en el mapa</h5>
                 <mat-form-field class="punto-nombre">
                     <mat-label>Nombre del punto de atencion</mat-label>
                     <input matInput type="text" [(ngModel)]="nombre">
                 </mat-form-field>
-                <div class="puntos-list">
-                    <mat-card class="punto-card" *ngFor="let puntoDeAtencion of puntosDeAtencion">
-                        <mat-card-header class="punto-atencion-card-header">
-                            <mat-label>{{puntoDeAtencion.punto.nombre}}</mat-label>
-                            <button mat-button (click)="eliminarMarcador(puntoDeAtencion)">
-                                <mat-icon>
-                                    close
-                                </mat-icon>
-                            </button>
-                        </mat-card-header>
-                        <mat-card-content>
-                            <p>longitud: {{puntoDeAtencion.punto.longitud}}</p>
-                            <p>latitud: {{puntoDeAtencion.punto.latitud}}</p>
-                        </mat-card-content>
-                    </mat-card>
+                <mat-form-field class="punto-nombre">
+                    <mat-label>Direccion del punto de atencion</mat-label>
+                    <input matInput type="text" [(ngModel)]="direccion">
+                </mat-form-field>
+                <mat-form-field class="punto-nombre">
+                    <mat-label>Latitud</mat-label>
+                    <input matInput type="text" [(ngModel)]="latitud">
+                </mat-form-field>
+                <mat-form-field class="punto-nombre">
+                    <mat-label>Longitud</mat-label>
+                    <input matInput type="text" [(ngModel)]="longitud">
+                </mat-form-field>
+                <div class="puntos-action">
+                    <button mat-button (click)="addMarcador()">Añadir punto</button>
+                    <button mat-button (click)="guardarPuntos()">Guardar</button>
                 </div>
+
             </div>
         </div>
     </mat-card-content>
-    <mat-card-actions class="actions">
-        <button mat-button (click)="guardarPuntos()">Guardar</button>
-    </mat-card-actions>
 </mat-card>

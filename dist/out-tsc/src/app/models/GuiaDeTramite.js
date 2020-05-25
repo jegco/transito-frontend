@@ -1,9 +1,9 @@
 export class GuiaDeTramite {
-    constructor(id, titulo, descripcion, formularios, pasos, tipo, soporteLegal, puntosDeAtencion) {
+    constructor(id, titulo, descripcion, anexo, pasos, tipo, soporteLegal, puntosDeAtencion) {
         this.id = id;
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.formularios = formularios;
+        this.anexo = anexo;
         this.pasos = pasos;
         this.tipo = tipo;
         this.soporteLegal = soporteLegal;

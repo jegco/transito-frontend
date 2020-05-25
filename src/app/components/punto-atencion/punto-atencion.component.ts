@@ -15,22 +15,27 @@ declare var H: any;
 })
 export class PuntoAtencionComponent extends BaseComponent implements AfterViewInit {
 
-  @ViewChild("map", { static: false })
+  @ViewChild('map', { static: false })
   public mapElement: ElementRef;
 
-  puntosDeAtencion: { marker: any, punto: PuntoAtencion}[] = [];
+  puntosDeAtencion: { marker: any, punto: PuntoAtencion }[] = [];
 
   nombre = '';
+  direccion = '';
+  latitud = 0;
+  longitud = 0;
   map: any;
+  ui: any;
 
-  public constructor(public readonly router: Router
-    , public readonly errorService: ErrorService
-    , public readonly toast: ToastrService
-    ,private readonly puntoDeAtencionService: PuntoAtencionService) {
-      super(router, errorService, toast);
-      this.platform = new H.service.Platform({
-        "apikey": "BNBi1cMp5htkcfPgw6a6HBPF06ymGygntZdlmEdPTZw"
-      });
+  public constructor(
+    public readonly router: Router,
+    public readonly errorService: ErrorService,
+    public readonly toast: ToastrService,
+    private readonly puntoDeAtencionService: PuntoAtencionService) {
+    super(router, errorService, toast);
+    this.platform = new H.service.Platform({
+      apikey: 'BNBi1cMp5htkcfPgw6a6HBPF06ymGygntZdlmEdPTZw'
+    });
   }
 
   public ngAfterViewInit() {
@@ -49,49 +54,39 @@ export class PuntoAtencionComponent extends BaseComponent implements AfterViewIn
     // Instantiate the default behavior, providing the mapEvents object:
     const behavior = new H.mapevents.Behavior(mapEvents);
 
-    const ui = H.ui.UI.createDefault(this.map, defaultLayers);
+    this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
 
     this.map.addEventListener('tap', (evt) => {
-      this.añadirMarcador(evt, ui);
+      const coord = this.map.screenToGeo(evt.currentPointer.viewportX,
+        evt.currentPointer.viewportY);
+      this.latitud = coord.lat.toFixed(4);
+      this.longitud = coord.lng.toFixed(4);
     });
 
     this.puntoDeAtencionService.obtenerPuntosDeAtencion()
-    .subscribe(punto => {
-      const marker = this.construirMarcador(punto.latitud, punto.longitud);
-      this.map.addObject(marker);
-      this.puntosDeAtencion = [...this.puntosDeAtencion, { marker, punto }];
-    });
+      .subscribe(punto => {
+        const marker = this.construirMarcador(punto.latitud, punto.longitud);
+        this.map.addObject(marker);
+        this.puntosDeAtencion = [...this.puntosDeAtencion, { marker, punto }];
+      });
 
   }
 
   construirMarcador(latitud: number, longitud: number): any {
+    const pngIcon = new H.map.Icon('../../../assets/img/DATT.png', { size: { w: 30, h: 30 } });
+
     return new H.map.Marker({
       lat: latitud,
       lng: longitud
-    });
+    }, { icon: pngIcon });
   }
 
-  añadirMarcador(evt, ui): void {
-    if(this.nombre && this.nombre !== '' ) {
-    const coord = this.map.screenToGeo(evt.currentPointer.viewportX,
-      evt.currentPointer.viewportY);
-    const latitud = coord.lat.toFixed(4);
-    const longitud = coord.lng.toFixed(4);
-    const marker = this.construirMarcador(latitud, longitud);
-    this.map.addObject(marker);
+  addMarcador = (): void => {
+      const marker = this.construirMarcador(this.latitud, this.longitud);
+      this.map.addObject(marker);
 
-    const punto = new PuntoAtencion('', this.nombre, latitud, longitud);
-    this.puntosDeAtencion = [...this.puntosDeAtencion, { marker , punto }];
-
-    }
-    // const informacion = this.construirformacionDelMarcador(latitud, longitud);
-    // ui.addBubble(informacion);
-  }
-
-  construirformacionDelMarcador(latitud: number, longitud: number): any {
-    return new H.ui.InfoBubble({ lat: latitud, lng: longitud }, {
-      content: '<b>Hello World!</b>'
-    });
+      const punto = new PuntoAtencion('', this.nombre, this.direccion, this.latitud, this.longitud);
+      this.puntosDeAtencion = [...this.puntosDeAtencion, { marker, punto }];
   }
 
   eliminarMarcador(punto: any) {
@@ -100,10 +95,10 @@ export class PuntoAtencionComponent extends BaseComponent implements AfterViewIn
   }
 
   guardarPuntos = (): void => {
-      this.puntoDeAtencionService
+    this.puntoDeAtencionService
       .guardarPuntoDeAtencion(this.puntosDeAtencion
         .map(puntoEnElMapa => puntoEnElMapa.punto))
-        .subscribe(()=> this.toast.success('Puntos de atención guardados')
+      .subscribe(() => this.toast.success('Puntos de atención guardados')
         , error => this.handleException(error));
   }
 

@@ -19,7 +19,7 @@ let PreferenciasComponent = class PreferenciasComponent extends BaseComponent {
         this.preferenciasService = preferenciasService;
         this.colorPrimarioToggle = false;
         this.colorSecundarioToggle = false;
-        this.iconoUrl = '../../../assets/img/DATT.png';
+        this.iconoUrl = '../../../assets/img/graphic-design.png';
         this.animacionesDisponibles = Object.keys(kf);
         this.nombre = '';
         this.cambiarAvatar = (file) => {
@@ -65,8 +65,9 @@ let PreferenciasComponent = class PreferenciasComponent extends BaseComponent {
         }, error => this.handleException(error));
         this.preferencias$ = this.preferenciasService.buscarPreferencias()
             .pipe(map(preferencia => {
-            if (!preferencia)
+            if (!preferencia) {
                 return new PreferenciasDeUsuario('', '', '', new Animacion('', '', 0, 1000));
+            }
             return preferencia;
         }), catchError(error => {
             this.handleException(error);

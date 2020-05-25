@@ -27,6 +27,9 @@ let LoginComponent = class LoginComponent extends BaseComponent {
                 this.handleException(error);
             });
         }
+        else {
+            this.showSpinner = false;
+        }
     }
 };
 LoginComponent = tslib_1.__decorate([

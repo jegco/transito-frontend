@@ -23,92 +23,88 @@ let GuardarGuiaComponent = class GuardarGuiaComponent extends BaseComponent {
             { icon: 'save', action: 'guardarGuia' },
             { icon: 'add', action: 'addPaso' }
         ];
+        this.borrarAnexoEnPaso = (paso) => {
+            paso.anexo = null;
+        };
+        this.seleccionarAnexo = (anexo, guia) => {
+            guia.anexo = anexo;
+        };
+        this.seleccionarAnexoEnPaso = (anexo, paso) => {
+            paso.anexo = anexo;
+        };
+        this.borrarAnexoEnGuia = (guia) => {
+            guia.anexo = null;
+        };
+        this.guardarGuia = (guia) => {
+            this.showSpinner = true;
+            this.puntosDeAtencion.forEach(puntoDeAtencion => {
+                if (guia.puntosDeAtencion) {
+                    guia.puntosDeAtencion = [...guia.puntosDeAtencion, puntoDeAtencion.punto];
+                }
+                else {
+                    guia.puntosDeAtencion = guia.puntosDeAtencion = [puntoDeAtencion.punto];
+                }
+            });
+            const guiaAGuardar = new GuiaDeTramite(guia.id ? guia.id : '', guia.titulo ? guia.titulo : '', guia.descripcion ? guia.descripcion : '', guia.anexo, guia.pasos ? guia.pasos : [], this.categoria, guia.soporteLegal ? guia.soporteLegal : '', guia.puntosDeAtencion ? guia.puntosDeAtencion : []);
+            this.guiasService.guardarGuia(guiaAGuardar)
+                .subscribe(() => {
+                this.showSpinner = false;
+                this.toast.success('Se guardo la guia correctamente');
+            }, error => {
+                this.showSpinner = false;
+                this.handleException(error);
+            });
+        };
+        this.doAction = (action, guia) => {
+            action === 'guardarGuia' ? this.guardarGuia(guia) : this.addPaso(guia);
+        };
+        this.cargarMultimedia = (documento) => {
+            return documento.rutaDeDescarga;
+        };
     }
     ngOnInit() {
         this.guia$ = this.activatedRoute.params
-            .pipe(map(params => params['nombreGuia']), switchMap(nombre => this.guiasService.buscarGuiaPorTitulo(nombre)), catchError(error => {
+            .pipe(map(params => params.nombreGuia), switchMap(nombre => this.guiasService.buscarGuiaPorTitulo(nombre)), catchError(error => {
             this.handleException(error);
-            return of(new GuiaDeTramite('', '', '', [], [], new Tipo('', '', new Documento('', '', '', '', '', '', '')), '', []));
+            return of(new GuiaDeTramite('', '', '', null, [], new Tipo('', '', new Documento('', '', '', '', '', '', '')), '', []));
         }));
+        this.anexos$ = this.documentoService.buscarDocumentos();
         this.tipos$ = this.tiposService.buscarTipos();
         this.puntosService.obtenerPuntosDeAtencion().subscribe(punto => this.puntosDeAtencion ?
             this.puntosDeAtencion = [...this.puntosDeAtencion, { punto, checked: false }] : this.puntosDeAtencion = [{ punto, checked: false }], error => this.handleException(error));
     }
     addPaso(guia) {
         if (guia.pasos) {
-            guia.pasos.push(new Paso('', '', []));
+            guia.pasos.push(new Paso('', '', null));
         }
         else {
-            guia.pasos = [new Paso('', '', [])];
+            guia.pasos = [new Paso('', '', null)];
         }
     }
     uploadFile(paso, event) {
         this.showSpinner = true;
-        if (event.length > 0) {
+        if (event.length > 0 && paso.anexo === null) {
             for (const image of event) {
                 const element = image;
                 this.documentoService.guardarDocumento(element)
-                    .subscribe(documento => {
-                    this.showSpinner = false;
-                    if (paso.anexos) {
-                        paso.anexos.push(documento);
-                    }
-                    else {
-                        paso.anexos = [documento];
-                    }
-                }, error => {
-                    this.showSpinner = false;
-                    this.handleException(error);
-                });
+                    .subscribe(documento => paso.anexo = documento, error => this.handleException(error), () => this.showSpinner = false);
             }
         }
         else {
             this.showSpinner = false;
         }
     }
-    deleteAttachment(paso, index) {
-        paso.anexos.splice(index, 1);
-    }
     uploadFileGuia(event, guia) {
         this.showSpinner = true;
-        for (let index = 0; index < event.length; index++) {
-            const element = event[index];
-            this.documentoService.guardarDocumento(element)
-                .subscribe(documento => {
-                this.showSpinner = false;
-                if (guia.formularios)
-                    guia.formularios.push(documento);
-                else
-                    guia.formularios = [documento];
-            }, error => this.handleException(error));
+        if (guia.anexo == null && event.length > 0) {
+            for (const anexo of event) {
+                this.documentoService.guardarDocumento(anexo)
+                    .subscribe(documento => guia.anexo = documento, error => this.handleException(error), () => this.showSpinner = false);
+            }
         }
-    }
-    deleteAttachmentGuia(index, guia) {
-        guia.formularios.splice(index, 1);
-    }
-    obtenerArchivosEnPaso(paso) {
-        return paso.anexos;
-    }
-    guardarGuia(guia) {
-        this.showSpinner = true;
-        this.puntosDeAtencion.forEach(puntoDeAtencion => {
-            if (guia.puntosDeAtencion)
-                [...guia.puntosDeAtencion, puntoDeAtencion.punto];
-            else
-                guia.puntosDeAtencion = guia.puntosDeAtencion = [puntoDeAtencion.punto];
-        });
-        const guiaAGuardar = new GuiaDeTramite(guia.id ? guia.id : '', guia.titulo ? guia.titulo : '', guia.descripcion ? guia.descripcion : '', guia.formularios ? guia.formularios : [], guia.pasos ? guia.pasos : [], this.categoria, guia.soporteLegal ? guia.soporteLegal : '', guia.puntosDeAtencion ? guia.puntosDeAtencion : []);
-        this.guiasService.guardarGuia(guiaAGuardar)
-            .subscribe(() => {
+        else {
             this.showSpinner = false;
-            this.toast.success('Se guardo la guia correctamente');
-        }, error => {
-            this.showSpinner = false;
-            this.handleException(error);
-        });
-    }
-    obtenerArchivosEnGuia(guia) {
-        return guia.formularios;
+        }
     }
     actualizarDescripcion({ editor }, guia) {
         const data = editor.getData();
@@ -117,12 +113,6 @@ let GuardarGuiaComponent = class GuardarGuiaComponent extends BaseComponent {
     actualizarDescripcionEnPaso({ editor }, paso) {
         const data = editor.getData();
         paso.descripcion = data;
-    }
-    doAction(action, guia) {
-        action === 'guardarGuia' ? this.guardarGuia(guia) : this.addPaso(guia);
-    }
-    cargarMultimedia(documento) {
-        return documento.rutaDeDescarga;
     }
 };
 GuardarGuiaComponent = tslib_1.__decorate([

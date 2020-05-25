@@ -48,6 +48,10 @@
     height: 180px;
 }
 
+.actions button {
+    color: green;
+}
+
 .animacion-content {
     display: flex;
     flex-direction: row;

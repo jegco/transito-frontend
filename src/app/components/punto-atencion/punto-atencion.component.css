@@ -1,13 +1,9 @@
-.punto-container {
-    width: 35%;
-}
-
 .card {
     margin: 1%;
 }
 
 .mapa-container {
-    width: 55%;
+    width: 35%;
     height: 500px;
     display: flex;
     flex-direction: column;
@@ -39,12 +35,24 @@
     display: flex;
     flex-direction: column;
     overflow-x: auto;
+    width: 35%;
     height: 90%;
+}
+
+.puntos-action button {
+    color: green;
+}
+
+.puntos-action {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
 }
 
 @media only screen and (min-width: 600px) {
     .mapa-container {
-        width: 55%;
+        width: 35%;
         height: 500px;
         display: flex;
         flex-direction: column;
@@ -52,6 +60,9 @@
     }
     .punto-container {
         width: 35%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
     }
     .container {
         display: flex;

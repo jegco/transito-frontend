@@ -1,8 +1,8 @@
 import * as tslib_1 from "tslib";
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { of } from 'rxjs';
-import { filter, switchMap, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 let DocumentosComponent = class DocumentosComponent extends BaseComponent {
     constructor(router, errorService, toast, documentosService) {
         super(router, errorService, toast);
@@ -10,7 +10,28 @@ let DocumentosComponent = class DocumentosComponent extends BaseComponent {
         this.errorService = errorService;
         this.toast = toast;
         this.documentosService = documentosService;
-        this.columnas = ['nombre', 'fecha de creacion', 'fecha de actualizacion'];
+        this.obtenerDatosTablaDocumentos = (documentos) => {
+            return documentos.map(documento => {
+                const { nombre, fechaCreacion, fechaActualizacion } = documento;
+                return { nombre, fechaCreacion, fechaActualizacion };
+            });
+        };
+        this.actualizarDocumento = (documento) => {
+            this.temp = documento;
+            this.fileInputReference.nativeElement.click();
+        };
+        this.eliminarDocumento = (documento) => {
+            this.documentosService.eliminarDocumento(documento)
+                .subscribe(() => this.toast.success('Documento eliminado satisfactoriamente'), error => this.handleException(error));
+        };
+        this.updateDocumento = (event, documento) => {
+            if (event.length > 0) {
+                for (const anexo of event) {
+                    this.documentosService.guardarDocumento(anexo)
+                        .subscribe(document => documento = document, error => this.handleException(error));
+                }
+            }
+        };
     }
     ngOnInit() {
         this.documentos$ = this.documentosService
@@ -19,19 +40,10 @@ let DocumentosComponent = class DocumentosComponent extends BaseComponent {
             return of();
         }));
     }
-    obtenerDatosTablaDocumentos(documentos) {
-        return documentos.map(documento => {
-            const { nombre, fechaCreacion, fechaActualizacion } = documento;
-            return { nombre, fechaCreacion, fechaActualizacion };
-        });
-    }
-    actualizarDocumento(index) {
-    }
-    eliminarDocumento(index) {
-        debugger;
-        this.documentos$.pipe(filter((documento, i) => i === index), switchMap(documento => this.documentosService.eliminarDocumento(documento))).subscribe(() => this.toast.success('Documento eliminado satisfactoriamente'), error => this.handleException(error));
-    }
 };
+tslib_1.__decorate([
+    ViewChild('fileInput', { static: false })
+], DocumentosComponent.prototype, "fileInputReference", void 0);
 DocumentosComponent = tslib_1.__decorate([
     Component({
         selector: 'app-documentos',

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { DocumentosService } from 'src/app/providers/documentos/documentos.service';
 import { BaseComponent } from '../base/base.component';
 import { Router } from '@angular/router';
@@ -6,7 +6,7 @@ import { ErrorService } from 'src/app/errors/services/error.service';
 import { ToastrService } from 'ngx-toastr';
 import { Documento } from 'src/app/models/Documento';
 import { Observable, of } from 'rxjs';
-import { filter, switchMap, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-documentos',
@@ -16,7 +16,10 @@ import { filter, switchMap, catchError } from 'rxjs/operators';
 export class DocumentosComponent extends BaseComponent implements OnInit {
 
   documentos$: Observable<Documento | Documento[]>;
-  columnas = ['nombre', 'fecha de creacion', 'fecha de actualizacion'];
+  temp: Documento;
+
+  @ViewChild('fileInput', {static: false})
+  fileInputReference: ElementRef;
 
   constructor(
     public readonly router: Router,
@@ -36,21 +39,32 @@ export class DocumentosComponent extends BaseComponent implements OnInit {
       );
   }
 
-  obtenerDatosTablaDocumentos(documentos: Documento[]): any[] {
+  obtenerDatosTablaDocumentos = (documentos: Documento[]): any[] => {
     return documentos.map(documento => {
       const { nombre, fechaCreacion, fechaActualizacion } = documento;
       return { nombre, fechaCreacion, fechaActualizacion };
     });
   }
 
-  actualizarDocumento(index: number): void {
-
+  actualizarDocumento = (documento: Documento): void => {
+    this.temp = documento;
+    this.fileInputReference.nativeElement.click();
   }
 
   eliminarDocumento = (documento: Documento): void => {
     this.documentosService.eliminarDocumento(documento)
       .subscribe(() => this.toast.success('Documento eliminado satisfactoriamente'),
         error => this.handleException(error));
+  }
+
+  updateDocumento = (event: any, documento: Documento) => {
+    if (event.length > 0) {
+      for (const anexo of event) {
+        this.documentosService.guardarDocumento(anexo)
+          .subscribe(document => documento = document
+            , error => this.handleException(error));
+      }
+    }
   }
 
 }

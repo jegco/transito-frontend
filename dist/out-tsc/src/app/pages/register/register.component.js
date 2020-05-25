@@ -33,7 +33,7 @@ RegisterComponent = tslib_1.__decorate([
     Component({
         selector: 'app-register',
         templateUrl: './register.component.html',
-        styleUrls: ['./register.component.sass']
+        styleUrls: ['./register.component.css']
     })
 ], RegisterComponent);
 export { RegisterComponent };

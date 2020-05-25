@@ -1,8 +1,8 @@
 export class Paso {
-    constructor(titulo, descripcion, anexos) {
+    constructor(titulo, descripcion, anexo) {
         this.titulo = titulo;
         this.descripcion = descripcion;
-        this.anexos = anexos;
+        this.anexo = anexo;
     }
 }
 //# sourceMappingURL=Paso.js.map

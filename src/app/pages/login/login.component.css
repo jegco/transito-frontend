@@ -8,11 +8,6 @@
     justify-content: center;
 }
 
-.login-container {
-    width: 25%;
-    height: 60%;
-}
-
 .login-form,
 .login-card {
     width: 100%;
@@ -67,4 +62,18 @@
     position: fixed;
     bottom: 0;
     right: 0;
+}
+
+@media only screen and (min-width: 600px) {
+    .login-container {
+        width: 25%;
+        height: 60%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .login-container {
+        width: 80%;
+        height: 60%;
+    }
 }

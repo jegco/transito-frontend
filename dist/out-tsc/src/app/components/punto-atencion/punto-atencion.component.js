@@ -11,6 +11,16 @@ let PuntoAtencionComponent = class PuntoAtencionComponent extends BaseComponent 
         this.puntoDeAtencionService = puntoDeAtencionService;
         this.puntosDeAtencion = [];
         this.nombre = '';
+        this.latitud = 0;
+        this.longitud = 0;
+        this.addMarcador = () => {
+            const marker = this.construirMarcador(this.latitud, this.longitud);
+            this.map.addObject(marker);
+            const punto = new PuntoAtencion('', this.nombre, this.latitud, this.longitud);
+            this.puntosDeAtencion = [...this.puntosDeAtencion, { marker, punto }];
+            const informacion = this.construirformacionDelMarcador(this.latitud, this.longitud, punto);
+            this.ui.addBubble(informacion);
+        };
         this.guardarPuntos = () => {
             this.puntoDeAtencionService
                 .guardarPuntoDeAtencion(this.puntosDeAtencion
@@ -18,7 +28,7 @@ let PuntoAtencionComponent = class PuntoAtencionComponent extends BaseComponent 
                 .subscribe(() => this.toast.success('Puntos de atención guardados'), error => this.handleException(error));
         };
         this.platform = new H.service.Platform({
-            "apikey": "BNBi1cMp5htkcfPgw6a6HBPF06ymGygntZdlmEdPTZw"
+            apikey: 'BNBi1cMp5htkcfPgw6a6HBPF06ymGygntZdlmEdPTZw'
         });
     }
     ngAfterViewInit() {
@@ -31,9 +41,11 @@ let PuntoAtencionComponent = class PuntoAtencionComponent extends BaseComponent 
         this.map.getViewPort().resize();
         // Instantiate the default behavior, providing the mapEvents object:
         const behavior = new H.mapevents.Behavior(mapEvents);
-        const ui = H.ui.UI.createDefault(this.map, defaultLayers);
+        this.ui = H.ui.UI.createDefault(this.map, defaultLayers);
         this.map.addEventListener('tap', (evt) => {
-            this.añadirMarcador(evt, ui);
+            const coord = this.map.screenToGeo(evt.currentPointer.viewportX, evt.currentPointer.viewportY);
+            this.latitud = coord.lat.toFixed(4);
+            this.longitud = coord.lng.toFixed(4);
         });
         this.puntoDeAtencionService.obtenerPuntosDeAtencion()
             .subscribe(punto => {
@@ -43,27 +55,16 @@ let PuntoAtencionComponent = class PuntoAtencionComponent extends BaseComponent 
         });
     }
     construirMarcador(latitud, longitud) {
+        const pngIcon = new H.map.Icon('../../../assets/img/DATT.png', { size: { w: 30, h: 30 } });
         return new H.map.Marker({
             lat: latitud,
             lng: longitud
-        });
+        }, { icon: pngIcon });
     }
-    añadirMarcador(evt, ui) {
-        if (this.nombre && this.nombre !== '') {
-            const coord = this.map.screenToGeo(evt.currentPointer.viewportX, evt.currentPointer.viewportY);
-            const latitud = coord.lat.toFixed(4);
-            const longitud = coord.lng.toFixed(4);
-            const marker = this.construirMarcador(latitud, longitud);
-            this.map.addObject(marker);
-            const punto = new PuntoAtencion('', this.nombre, latitud, longitud);
-            this.puntosDeAtencion = [...this.puntosDeAtencion, { marker, punto }];
-        }
-        // const informacion = this.construirformacionDelMarcador(latitud, longitud);
-        // ui.addBubble(informacion);
-    }
-    construirformacionDelMarcador(latitud, longitud) {
-        return new H.ui.InfoBubble({ lat: latitud, lng: longitud }, {
-            content: '<b>Hello World!</b>'
+    construirformacionDelMarcador(latitud, longitud, punto) {
+        latitud;
+        return new H.ui.InfoBubble({ lat: latitud + 0.01, lng: longitud }, {
+            content: '<br>Hello</br>'
         });
     }
     eliminarMarcador(punto) {
@@ -72,7 +73,7 @@ let PuntoAtencionComponent = class PuntoAtencionComponent extends BaseComponent 
     }
 };
 tslib_1.__decorate([
-    ViewChild("map", { static: false })
+    ViewChild('map', { static: false })
 ], PuntoAtencionComponent.prototype, "mapElement", void 0);
 PuntoAtencionComponent = tslib_1.__decorate([
     Component({

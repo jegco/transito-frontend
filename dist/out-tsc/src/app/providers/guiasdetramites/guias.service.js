@@ -18,7 +18,7 @@ let GuiasService = class GuiasService {
     }
     buscarGuiaPorTitulo(titulo) {
         return this.http.getResource(`${this.url}/titulo`, titulo)
-            .pipe(concatAll(), defaultIfEmpty(new GuiaDeTramite('', '', '', [], [], new Tipo('', '', new Documento('', '', '', '', '', '', '')), '', [])));
+            .pipe(concatAll(), defaultIfEmpty(new GuiaDeTramite('', '', '', null, [], new Tipo('', '', new Documento('', '', '', '', '', '', '')), '', [])));
     }
     eliminarGuia(guia) {
         return this.http.delete(this.url, guia);
