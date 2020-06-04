@@ -15,6 +15,7 @@ import { Tipo } from 'src/app/models/Tipo';
 import { TiposService } from 'src/app/providers/tipos/tipos.service';
 import { PuntoAtencion } from 'src/app/models/PuntoAtencion';
 import { PuntoAtencionService } from 'src/app/providers/puntosdeatencion/punto-atencion.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-guardar-guia',
@@ -60,7 +61,15 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
     this.anexos$ = this.documentoService.buscarDocumentos();
 
-    this.tipos$ = this.tiposService.buscarTipos();
+    this.tipos$ = this.tiposService.buscarTipos().pipe(
+      map(tipos => {
+        tipos.map(tipo => {
+          tipo.icono.rutaDeDescarga = environment.serverUrl + '/documentos/resource/' + tipo.icono.nombre;
+          return tipo;
+        });
+        return tipos;
+      })
+    );
     this.puntosService.obtenerPuntosDeAtencion().subscribe(punto =>
       this.puntosDeAtencion ?
         this.puntosDeAtencion = [...this.puntosDeAtencion, { punto, checked: false }] : this.puntosDeAtencion = [{ punto, checked: false }]
@@ -69,10 +78,14 @@ export class GuardarGuiaComponent extends BaseComponent implements OnInit {
 
   addPaso(guia: GuiaDeTramite): void {
     if (guia.pasos) {
-      guia.pasos.push(new Paso('', '', null));
+      guia.pasos = [...guia.pasos, new Paso('', '', null)];
     } else {
       guia.pasos = [new Paso('', '', null)];
     }
+  }
+
+  deletePaso = (guia: GuiaDeTramite, key: number) => {
+    guia.pasos.splice(key, 1);
   }
 
   uploadFile(paso: Paso, event: any) {

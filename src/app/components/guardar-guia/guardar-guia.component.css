@@ -105,6 +105,7 @@ textarea {
 .files-list {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 80%;
     margin: 10px auto;
     background: #ffffff;
@@ -135,4 +136,26 @@ textarea {
     bottom: 2%;
     right: 2%;
     background: -webkit-linear-gradient(top, #106B0A 0, #189F0F 100%) no-repeat;
+}
+
+@media only screen and (max-width: 700px) {
+    .anexos-container {
+        flex-direction: column;
+    }
+    .anexos-list {
+        width: 100%;
+    }
+    .anexos-content {
+        width: 100%;
+    }
+    .file-name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+    .uploadfilecontainer {
+        height: 150px;
+    }
+    .floating-button-guias {
+        bottom: 75px;
+    }
 }

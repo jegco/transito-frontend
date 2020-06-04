@@ -56,7 +56,7 @@
                             <input hidden type="file" #fileInput (change)="uploadFileGuia($event.target.files, guia)">
                         </div>
                         <div class="files-list" *ngIf="guia.anexo != null">
-                            <p> {{ guia.anexo.nombre }} </p>
+                            <p class="file-name"> {{ guia.anexo.nombre }} </p>
                             <mat-icon aria-hidden="false" class="delete-file" (click)="borrarAnexoEnGuia(guia)" aria-label="Example delete icon">
                                 delete</mat-icon>
                         </div>
@@ -76,6 +76,9 @@
                     <mat-panel-description>
                         Paso a seguir
                     </mat-panel-description>
+                    <button mat-button (click)="deletePaso(guia, key)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
                 </mat-expansion-panel-header>
 
                 <div class="paso-container">
@@ -109,7 +112,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </mat-expansion-panel>
         </mat-accordion>
@@ -117,6 +119,6 @@
         <mat-spinner [style.display]="showSpinner ? 'block' : 'none'" class="spinner"></mat-spinner>
     </form>
 
-    <app-speed-dial-floating-button [fabButtons]="buttonOptions" (actionBtn)="doAction($event, guia)">
+    <app-speed-dial-floating-button [fabButtons]="buttonOptions" class="guias-fb-btn" (actionBtn)="doAction($event, guia)">
     </app-speed-dial-floating-button>
 </div>

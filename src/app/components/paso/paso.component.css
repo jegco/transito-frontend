@@ -17,3 +17,25 @@
 .guia-pasos-card {
     margin: 1%;
 }
+
+.paso-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.anexos-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+.anexos-list {
+    overflow: auto;
+    height: 400px;
+    width: 50%;
+}
+
+.anexos-content {
+    width: 50%;
+}
