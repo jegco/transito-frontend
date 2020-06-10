@@ -38,4 +38,7 @@
         width: 100%;
         height: 230px;
     }
+    .floating-button-guias {
+        bottom: 75px;
+    }
 }

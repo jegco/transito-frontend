@@ -33,6 +33,6 @@ const translate = [
     style({ transform: 'translate(10%, 10%)'}),
     style({ transform: 'translate(-10%, 10%)' }),
     style({ transform: 'translate(0px, 0px)' })
-]
+];
 
 export const keyframes = {bounce, swing, scale, translate};

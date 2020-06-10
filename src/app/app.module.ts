@@ -38,6 +38,7 @@ import { AuthGuard } from './providers/user/auth-guard';
 import { PuntoAtencionComponent } from './components/punto-atencion/punto-atencion.component';
 import { TiposComponent } from './components/tipos/tipos.component';
 import { PasoComponent } from './components/paso/paso.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -60,7 +61,8 @@ import { PasoComponent } from './components/paso/paso.component';
     EstadoUsuarioComponent,
     PuntoAtencionComponent,
     TiposComponent,
-    PasoComponent
+    PasoComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,

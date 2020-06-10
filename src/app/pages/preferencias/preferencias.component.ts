@@ -8,12 +8,13 @@ import { ToastrService } from 'ngx-toastr';
 import { Tipo } from 'src/app/models/Tipo';
 import { TiposService } from 'src/app/providers/tipos/tipos.service';
 import { DocumentosService } from 'src/app/providers/documentos/documentos.service';
-import { switchMap, defaultIfEmpty, catchError, map } from 'rxjs/operators';
+import { switchMap, catchError, map } from 'rxjs/operators';
 import { Documento } from 'src/app/models/Documento';
 import { Observable, of } from 'rxjs';
 import { PreferenciasDeUsuario } from 'src/app/models/PreferenciasDeUsuario';
 import { PreferenciasService } from 'src/app/providers/preferencias/preferencias.service';
 import { Animacion } from 'src/app/models/Animacion';
+import { environment as Env } from 'src/environments/environment';
 
 @Component({
   selector: 'app-preferencias',
@@ -95,7 +96,7 @@ export class PreferenciasComponent extends BaseComponent implements OnInit {
   }
 
   cargarMultimedia = (documento: Documento): string => {
-    return documento.rutaDeDescarga;
+    return Env.serverUrl + '/documentos/resource/' + documento.nombre;
   }
 
   eliminarTipo = (index: number): void => {

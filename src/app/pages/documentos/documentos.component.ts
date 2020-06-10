@@ -51,9 +51,12 @@ export class DocumentosComponent extends BaseComponent implements OnInit {
     this.fileInputReference.nativeElement.click();
   }
 
-  eliminarDocumento = (documento: Documento): void => {
+  eliminarDocumento = (documento: Documento, documentos: Documento[]): void => {
     this.documentosService.eliminarDocumento(documento)
-      .subscribe(() => this.toast.success('Documento eliminado satisfactoriamente'),
+      .subscribe(() => {
+        this.toast.success('Documento eliminado satisfactoriamente');
+        documentos.filter(doc => doc === documento);
+      },
         error => this.handleException(error));
   }
 

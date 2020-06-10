@@ -12,9 +12,9 @@
                     <input type="password" [(ngModel)]="password" name="password" required class="input" />
                 </div>
                 <div class="login-actions">
-                    <button mat-button (click)="openPage('register')" class="btn-registrarse">Crear nueva
+                    <button mat-button (click)="openPage('register')" class="btn-registrarse" name="login">Crear nueva
                         cuenta</button>
-                    <button (click)="login()" class="btn-login">Iniciar sesion</button>
+                    <button (click)="login()" class="btn-login" name="registrarse">Iniciar sesion</button>
                 </div>
                 <p [style.display]="errorMessage ? 'block' : 'none'" [className]="'error'">{{ errorMessage }}</p>
             </mat-card>
