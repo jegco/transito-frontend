@@ -3,6 +3,7 @@ import { Component, ViewChild } from '@angular/core';
 import { BaseComponent } from '../base/base.component';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { environment as Env } from 'src/environments/environment';
 let GuiaDetallesComponent = class GuiaDetallesComponent extends BaseComponent {
     constructor(router, errorService, toast, guiasService, documentosService, activatedRoute, sanitizer) {
         super(router, errorService, toast);
@@ -13,20 +14,27 @@ let GuiaDetallesComponent = class GuiaDetallesComponent extends BaseComponent {
         this.documentosService = documentosService;
         this.activatedRoute = activatedRoute;
         this.sanitizer = sanitizer;
+        this.mapRendered = false;
         this.descripcion = {};
         this.descripcionComoHTML = (guia) => {
-            this.añadirMarcador(guia.puntosDeAtencion);
+            this.mapRendered = true;
             return this.sanitizer.bypassSecurityTrustHtml(guia.descripcion);
         };
         this.añadirMarcador = (puntos) => {
             puntos.forEach(punto => {
-                this.map.addObject(new H.map.Marker({
-                    lat: punto.latitud,
-                    lng: punto.longitud
-                }));
+                this.map.addObject(this.construirMarcador(punto.latitud, punto.longitud));
             });
             // const informacion = this.construirformacionDelMarcador(latitud, longitud);
             // ui.addBubble(informacion);
+        };
+        this.construirMarcador = (latitud, longitud) => {
+            const pngIcon = new H.map.Icon('../../../assets/img/DATT.png', {
+                size: { w: 30, h: 30 }
+            });
+            return new H.map.Marker({
+                lat: latitud,
+                lng: longitud
+            }, { icon: pngIcon });
         };
         this.descargarArchivo = (documento) => {
             this.documentosService.descargarDocumento(documento).subscribe(data => {
@@ -35,7 +43,11 @@ let GuiaDetallesComponent = class GuiaDetallesComponent extends BaseComponent {
                 const link = document.createElement('a');
                 link.href = url;
                 link.download = documento.nombre;
-                link.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
+                link.dispatchEvent(new MouseEvent('click', {
+                    bubbles: true,
+                    cancelable: true,
+                    view: window
+                }));
                 setTimeout(() => {
                     window.open(url);
                     link.remove();
@@ -47,11 +59,18 @@ let GuiaDetallesComponent = class GuiaDetallesComponent extends BaseComponent {
         });
     }
     ngOnInit() {
-        this.guia$ = this.activatedRoute.params
+        this.activatedRoute.params
             .pipe(map(params => params.nombreGuia), switchMap(nombre => this.guiasService.buscarGuiaPorTitulo(nombre)), catchError(error => {
             this.handleException(error);
             return of();
-        }));
+        }))
+            .subscribe(guia => {
+            this.mapRendered = true;
+            guia.anexo.rutaDeDescarga =
+                Env.serverUrl + '/documentos/resource/' + guia.anexo.nombre;
+            this.guia = guia;
+            this.añadirMarcador(guia.puntosDeAtencion);
+        });
     }
     ngAfterViewInit() {
         const defaultLayers = this.platform.createDefaultLayers();
@@ -66,9 +85,6 @@ let GuiaDetallesComponent = class GuiaDetallesComponent extends BaseComponent {
         const ui = H.ui.UI.createDefault(this.map, defaultLayers);
     }
 };
-tslib_1.__decorate([
-    ViewChild('nav', { static: true })
-], GuiaDetallesComponent.prototype, "slider", void 0);
 tslib_1.__decorate([
     ViewChild('map', { static: false })
 ], GuiaDetallesComponent.prototype, "mapElement", void 0);

@@ -1,6 +1,6 @@
 import * as tslib_1 from "tslib";
-import { Component } from '@angular/core';
-import { BaseComponent } from '../base/base.component';
+import { Component } from "@angular/core";
+import { BaseComponent } from "../base/base.component";
 let DashboardComponent = class DashboardComponent extends BaseComponent {
     constructor(router, errorService, toast) {
         super(router, errorService, toast);
@@ -8,18 +8,17 @@ let DashboardComponent = class DashboardComponent extends BaseComponent {
         this.errorService = errorService;
         this.toast = toast;
     }
-    ngOnInit() {
-    }
+    ngOnInit() { }
     cerrarSesion() {
         localStorage.clear();
-        this.router.navigate(['/login']);
+        this.router.navigate(["/login"]);
     }
 };
 DashboardComponent = tslib_1.__decorate([
     Component({
-        selector: 'app-dashboard',
-        templateUrl: './dashboard.component.html',
-        styleUrls: ['./dashboard.component.css']
+        selector: "app-dashboard",
+        templateUrl: "./dashboard.component.html",
+        styleUrls: ["./dashboard.component.css"]
     })
 ], DashboardComponent);
 export { DashboardComponent };

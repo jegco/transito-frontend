@@ -20,9 +20,12 @@ let DocumentosComponent = class DocumentosComponent extends BaseComponent {
             this.temp = documento;
             this.fileInputReference.nativeElement.click();
         };
-        this.eliminarDocumento = (documento) => {
+        this.eliminarDocumento = (documento, documentos) => {
             this.documentosService.eliminarDocumento(documento)
-                .subscribe(() => this.toast.success('Documento eliminado satisfactoriamente'), error => this.handleException(error));
+                .subscribe(() => {
+                this.toast.success('Documento eliminado satisfactoriamente');
+                documentos.filter(doc => doc === documento);
+            }, error => this.handleException(error));
         };
         this.updateDocumento = (event, documento) => {
             if (event.length > 0) {

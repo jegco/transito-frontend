@@ -5,7 +5,7 @@
             <div class="descripcion-guia" [innerHTML]="descripcionComoHTML(guia)"></div>
             <app-multimedia *ngIf="guia.anexo != null" [anexo]="guia.anexo"></app-multimedia>
         </div>
-        <app-paso *ngFor="let paso of guia.pasos; let i = index" [paso]="paso" [index]="i"></app-paso>
+        <app-paso-preview *ngFor="let paso of guia.pasos; let i = index" [paso]="paso" [index]="i"></app-paso-preview>
         <ng-template #loading>
             <mat-spinner class="spinner"></mat-spinner>
         </ng-template>

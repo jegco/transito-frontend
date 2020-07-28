@@ -7,6 +7,7 @@ import { BaseComponent } from 'src/app/pages/base/base.component';
 import { Documento } from 'src/app/models/Documento';
 import { of } from 'rxjs';
 import { Tipo } from 'src/app/models/Tipo';
+import { environment } from 'src/environments/environment';
 let GuardarGuiaComponent = class GuardarGuiaComponent extends BaseComponent {
     constructor(router, errorService, toast, activatedRoute, documentoService, guiasService, tiposService, puntosService) {
         super(router, errorService, toast);
@@ -23,6 +24,9 @@ let GuardarGuiaComponent = class GuardarGuiaComponent extends BaseComponent {
             { icon: 'save', action: 'guardarGuia' },
             { icon: 'add', action: 'addPaso' }
         ];
+        this.deletePaso = (guia, key) => {
+            guia.pasos.splice(key, 1);
+        };
         this.borrarAnexoEnPaso = (paso) => {
             paso.anexo = null;
         };
@@ -69,13 +73,19 @@ let GuardarGuiaComponent = class GuardarGuiaComponent extends BaseComponent {
             return of(new GuiaDeTramite('', '', '', null, [], new Tipo('', '', new Documento('', '', '', '', '', '', '')), '', []));
         }));
         this.anexos$ = this.documentoService.buscarDocumentos();
-        this.tipos$ = this.tiposService.buscarTipos();
+        this.tipos$ = this.tiposService.buscarTipos().pipe(map(tipos => {
+            tipos.map(tipo => {
+                tipo.icono.rutaDeDescarga = environment.serverUrl + '/documentos/resource/' + tipo.icono.nombre;
+                return tipo;
+            });
+            return tipos;
+        }));
         this.puntosService.obtenerPuntosDeAtencion().subscribe(punto => this.puntosDeAtencion ?
             this.puntosDeAtencion = [...this.puntosDeAtencion, { punto, checked: false }] : this.puntosDeAtencion = [{ punto, checked: false }], error => this.handleException(error));
     }
     addPaso(guia) {
         if (guia.pasos) {
-            guia.pasos.push(new Paso('', '', null));
+            guia.pasos = [...guia.pasos, new Paso('', '', null)];
         }
         else {
             guia.pasos = [new Paso('', '', null)];

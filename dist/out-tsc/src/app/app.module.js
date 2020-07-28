@@ -34,6 +34,9 @@ import { AuthGuard } from './providers/user/auth-guard';
 import { PuntoAtencionComponent } from './components/punto-atencion/punto-atencion.component';
 import { TiposComponent } from './components/tipos/tipos.component';
 import { PasoComponent } from './components/paso/paso.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { MultimediaComponent } from './components/multimedia/multimedia.component';
+import { PasoPreviewComponent } from './components/paso-preview/paso-preview.component';
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -58,7 +61,10 @@ AppModule = tslib_1.__decorate([
             EstadoUsuarioComponent,
             PuntoAtencionComponent,
             TiposComponent,
-            PasoComponent
+            PasoComponent,
+            ProfileComponent,
+            MultimediaComponent,
+            PasoPreviewComponent
         ],
         imports: [
             BrowserModule,
@@ -90,11 +96,13 @@ AppModule = tslib_1.__decorate([
             QuillModule.forRoot()
         ],
         entryComponents: [EstadoUsuarioComponent],
-        providers: [{
+        providers: [
+            {
                 provide: HTTP_INTERCEPTORS,
                 useClass: HttpErrorInterceptor,
                 multi: true
-            }, {
+            },
+            {
                 provide: HTTP_INTERCEPTORS,
                 useClass: HttpAuthInterceptor,
                 multi: true

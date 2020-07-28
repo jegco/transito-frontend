@@ -1,7 +1,8 @@
 export class PuntoAtencion {
-    constructor(id, nombre, latitud, longitud) {
+    constructor(id, nombre, direccion, latitud, longitud) {
         this.id = id;
         this.nombre = nombre;
+        this.direccion = direccion;
         this.latitud = latitud;
         this.longitud = longitud;
     }

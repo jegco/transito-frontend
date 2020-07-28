@@ -8,6 +8,7 @@ import { switchMap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { PreferenciasDeUsuario } from 'src/app/models/PreferenciasDeUsuario';
 import { Animacion } from 'src/app/models/Animacion';
+import { environment as Env } from 'src/environments/environment';
 let PreferenciasComponent = class PreferenciasComponent extends BaseComponent {
     constructor(router, errorService, toast, tiposService, documentosService, preferenciasService) {
         super(router, errorService, toast);
@@ -45,7 +46,7 @@ let PreferenciasComponent = class PreferenciasComponent extends BaseComponent {
             }
         };
         this.cargarMultimedia = (documento) => {
-            return documento.rutaDeDescarga;
+            return Env.serverUrl + '/documentos/resource/' + documento.nombre;
         };
         this.eliminarTipo = (index) => {
             this.tiposService.eliminarTipo(this.tipos[index])

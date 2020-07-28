@@ -1,0 +1,69 @@
+.guia-detalle-header-image {
+    width: 0;
+    height: 0;
+    border-top: 60px solid transparent;
+    border-bottom: 60px solid transparent;
+    border-left: 60px solid;
+    margin-right: 1%;
+}
+
+.guia-pasos-card {
+    margin: 1%;
+}
+
+.guia-detalle-paso {
+    display: flex;
+    flex-direction: column;
+    margin-right: 1%;
+}
+
+.paso-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.numero-paso {
+    font-size: 40px;
+    top: -60px;
+    position: relative;
+    left: -50px;
+    color: white;
+}
+
+.paso-descripcion {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.anexo {
+    width: 200px;
+    height: 130px;
+}
+
+@media screen and (min-width:1024px) {}
+
+@media screen and (max-width:1024px) {
+    .paso-descripcion {
+        flex-direction: column;
+    }
+    .descripcion-paso {
+        width: 100%;
+    }
+    .guia-detalle-paso {
+        justify-content: flex-start;
+    }
+    .guia-detalle-header-image {
+        border-top: 30px solid transparent;
+        border-bottom: 30px solid transparent;
+        border-left: 30px solid;
+    }
+    .numero-paso {
+        font-size: 20px;
+        top: -30px;
+        left: -25px;
+    }
+    .paso-titulo {
+        margin-left: 4%;
+    }
+}

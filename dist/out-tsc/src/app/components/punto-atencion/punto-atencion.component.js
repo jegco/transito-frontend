@@ -11,15 +11,14 @@ let PuntoAtencionComponent = class PuntoAtencionComponent extends BaseComponent 
         this.puntoDeAtencionService = puntoDeAtencionService;
         this.puntosDeAtencion = [];
         this.nombre = '';
+        this.direccion = '';
         this.latitud = 0;
         this.longitud = 0;
         this.addMarcador = () => {
             const marker = this.construirMarcador(this.latitud, this.longitud);
             this.map.addObject(marker);
-            const punto = new PuntoAtencion('', this.nombre, this.latitud, this.longitud);
+            const punto = new PuntoAtencion('', this.nombre, this.direccion, this.latitud, this.longitud);
             this.puntosDeAtencion = [...this.puntosDeAtencion, { marker, punto }];
-            const informacion = this.construirformacionDelMarcador(this.latitud, this.longitud, punto);
-            this.ui.addBubble(informacion);
         };
         this.guardarPuntos = () => {
             this.puntoDeAtencionService
@@ -60,12 +59,6 @@ let PuntoAtencionComponent = class PuntoAtencionComponent extends BaseComponent 
             lat: latitud,
             lng: longitud
         }, { icon: pngIcon });
-    }
-    construirformacionDelMarcador(latitud, longitud, punto) {
-        latitud;
-        return new H.ui.InfoBubble({ lat: latitud + 0.01, lng: longitud }, {
-            content: '<br>Hello</br>'
-        });
     }
     eliminarMarcador(punto) {
         this.puntosDeAtencion = this.puntosDeAtencion.filter(puntoAtencion => puntoAtencion !== punto);
