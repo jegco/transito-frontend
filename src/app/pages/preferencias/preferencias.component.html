@@ -7,7 +7,9 @@
                     <div class="cp-container">
                         <mat-form-field appearance="outline">
                             <mat-label>Color primario</mat-label>
-                            <input matInput [(colorPicker)]="preferencias.colorPrimario" [(cpToggle)]="colorPrimarioToggle" [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]" [value]="preferencias.colorPrimario" name="colorPrimario" />
+                            <input matInput [(colorPicker)]="preferencias.colorPrimario"
+                                [(cpToggle)]="colorPrimarioToggle" [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]"
+                                [value]="preferencias.colorPrimario" name="colorPrimario" />
                         </mat-form-field>
                         <button mat-button>
                             <mat-icon (click)="colorPrimarioToggle=!colorPrimarioToggle"
@@ -18,7 +20,10 @@
                     <div class="cp-container">
                         <mat-form-field appearance="outline">
                             <mat-label>Color secundario</mat-label>
-                            <input matInput [(colorPicker)]="preferencias.colorSecundario" [(cpToggle)]="colorSecundarioToggle" [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]" [value]="preferencias.colorSecundario" name="colorSecundario" />
+                            <input matInput [(colorPicker)]="preferencias.colorSecundario"
+                                [(cpToggle)]="colorSecundarioToggle"
+                                [cpIgnoredElements]="[IgnoredButtons, IgnoredInput]"
+                                [value]="preferencias.colorSecundario" name="colorSecundario" />
                         </mat-form-field>
                         <button mat-button>
                             <mat-icon (click)="colorSecundarioToggle=!colorSecundarioToggle"
@@ -42,14 +47,17 @@
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Tiempo de espera para iniciar animación</mat-label>
-                            <input matInput [(ngModel)]="preferencias.animacion.tiempoDeEspera" type="number" name="tiempoDeEspera" />
+                            <input matInput [(ngModel)]="preferencias.animacion.tiempoDeEspera" type="number"
+                                name="tiempoDeEspera" />
                         </mat-form-field>
                         <mat-form-field>
                             <mat-label>Tiempo de la animación</mat-label>
-                            <input matInput [(ngModel)]="preferencias.animacion.tiempoDeAnimacion" type="number" name="tiempoDeAnimacion" />
+                            <input matInput [(ngModel)]="preferencias.animacion.tiempoDeAnimacion" type="number"
+                                name="tiempoDeAnimacion" />
                         </mat-form-field>
                     </div>
-                    <img src="../../../assets/img/DATT.png" class="animation-example" [@animacion]="{value: preferencias.animacion.nombre, params: {delay: preferencias.animacion.tiempoDeEspera, time: preferencias.animacion.tiempoDeAnimacion}}">
+                    <img src="../../../assets/img/DATT.png" class="animation-example"
+                        [@animacion]="{value: preferencias.animacion.nombre, params: {delay: preferencias.animacion.tiempoDeEspera, time: preferencias.animacion.tiempoDeAnimacion}}">
                 </div>
             </mat-card-content>
             <mat-card-actions class="actions">
@@ -60,15 +68,15 @@
 
         <mat-card class="card">
             <mat-card-header>
-                <mat-card-title>Tipos de guias</mat-card-title>
+                <mat-card-title>Tipos de guías</mat-card-title>
             </mat-card-header>
             <mat-card-content class="tipos-content">
                 <div class="tipos-form-container">
-                    <p>Selecciona una imagen que represente la categoria haciendo click en la imagen</p>
+                    <p>Selecciona una imagen que represente la categoría haciendo click en la imagen</p>
                     <img [src]="iconoUrl" (click)="fileInput.click()" alt="" class="tipos-icono">
                     <div class="tipo-form">
                         <mat-form-field>
-                            <mat-label> Nombre de la categoria de la guia</mat-label>
+                            <mat-label> Nombre de la categoría de la guía</mat-label>
                             <input type="text" [(ngModel)]="nombre" matInput name="nombre">
                         </mat-form-field>
                     </div>
@@ -76,7 +84,8 @@
                 <div class="tipos-list">
                     <div class="tipo-card" *ngFor="let tipo of tipos; let i = index">
                         <div class="tipo-content">
-                            <img mat-card-avatar [src]="cargarMultimedia(tipo.icono)" [title]="tipo.nombre" class="icono">
+                            <img mat-card-avatar [src]="cargarMultimedia(tipo.icono)" [title]="tipo.nombre"
+                                class="icono">
                             <p>{{tipo.nombre}}</p>
                         </div>
                         <button mat-button (click)="eliminarTipo(i)" class="close">
