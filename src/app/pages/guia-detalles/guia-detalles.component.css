@@ -1,71 +1,137 @@
-.guia-detalle-header-image {
-    position: absolute;
-    margin-top: -30px;
-    border-color: #8B7F7F;
-    border-style: solid;
-    margin-left: -30px;
-    background-color: white;
-    text-align: center;
+.guia-detalles-content {
+  display: flex;
+  width: 70%;
+  flex-direction: column;
+  padding: 0 1% 0 0;
+  background-color: white;
+}
+
+.guia-detalles-container {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
+
+.puntos-atencion-container {
+  display: flex;
+  flex-direction: row;
+  background-color: white;
+}
+
+.descripcion-guia-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.descripcion-guia {
+  text-align: center;
+  margin-left: 1%;
+}
+
+.soporte-legal-container {
+  /* background-color: grey; */
+  width: 30%;
+  padding: 1%;
 }
 
 .mapa-container {
-    width: 100%;
-    height: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.mapa-card {
+  margin: 1%;
 }
 
 .guia-detalle-header-image p {
-    position: relative;
-    top: 10%;
-    transform: translateY(-50%);
+  position: relative;
+  top: 10%;
+  transform: translateY(-50%);
+}
+
+.guia-titulo {
+  margin: 1% 1% 1% 2%;
 }
 
 .guia-pasos-card {
-    margin: 1%;
+  margin: 1%;
 }
 
 .guia-detalle-card {
-    margin: 1% 1% 2% 0;
+  margin: 1% 1% 2% 0;
 }
 
 .pdf-container {
-    width: inherit;
-    display: flex;
-    flex-direction: column;
-    margin-top: 10%;
-    height: 70%;
-    justify-content: flex-start;
-    align-content: center;
-  }
-  
-  .pdf-icon {
-    width: 95%;
-    margin-top: 10%;
-  }
-  
-  .pdf-nombre {
-    text-align: center;
-    padding: 0;
-    margin: 0;
-    width: inherit;
-    background-color: green;
-    height: 20%; 
-  }
-  
-  .pdf-nombre p {
-    color: white;
-  }
-  
-  .pdf-card {
-    width: 100px;
-    margin: 0;
-    padding: 0;
-  }
+  width: inherit;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10%;
+  height: 70%;
+  justify-content: flex-start;
+  align-content: center;
+}
 
-  .spinner {
-    position: fixed;
-    bottom: 0;
-    right: 0;
+.pdf-icon {
+  width: 95%;
+  margin-top: 10%;
+}
+
+.pdf-nombre {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+  width: inherit;
+  background-color: green;
+  height: 20%;
+}
+
+.pdf-nombre p {
+  color: white;
+}
+
+.pdf-card {
+  width: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+.spinner {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+}
+
+@media only screen and (max-width: 700px) {
+  .guia-detalles-container {
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+  }
+  .guia-detalles-content {
+    width: 98%;
+  }
+  .descripcion-guia-container {
+    justify-content: center;
+  }
+  .descripcion-guia {
+    width: 100%;
+  }
+  .soporte-legal-container {
+    width: 98%;
+  }
+  .puntos-atencion-container {
+    flex-direction: column-reverse;
+    margin-top: 3%;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  .guia-detalles-container {
+    flex-direction: row;
+  }
 }
